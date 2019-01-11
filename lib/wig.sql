@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2019 at 04:50 PM
+-- Generation Time: Jan 11, 2019 at 05:26 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -31,22 +31,16 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_lm` (
   `id_lm` int(10) NOT NULL,
   `id_wig` varchar(15) NOT NULL,
-  `lm` text NOT NULL,
-  `pic` text NOT NULL
+  `lm_pic` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `tbl_lm`
 --
 
-INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm`, `pic`) VALUES
-(5, 'WIG0001', 'Survey', 'Rehan '),
-(6, 'WIG0001', 'Tactical', 'Umar'),
-(7, 'WIG0002', 'Survey', 'Thufail Erlangga'),
-(8, 'WIG0002', 'Magang', 'Ahmad'),
-(9, 'WIG0002', 'Kerja ', 'Riantri Alvani'),
-(10, 'WIG0002', 'Kerja Honor', 'Petrus'),
-(11, 'WIG0002', 'Magang', 'Ryan Pace');
+INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm_pic`) VALUES
+(13, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Muhammad Iriansyah\"},{\"lm\":\"Survey 2\",\"pic\":\"Fahmi Roihanul Firdaus\"}]'),
+(14, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Thufail Erlangga\"}]');
 
 -- --------------------------------------------------------
 
@@ -266,8 +260,8 @@ CREATE TABLE `tbl_wig` (
 --
 
 INSERT INTO `tbl_wig` (`id_wig`, `username`, `judul`, `tanggal`, `target`, `satuan`) VALUES
-('WIG0001', 'SPVMAPPING', 'Laporan Listrik Kerakyatan', '2019-01-06', 5, 'Dokumen'),
-('WIG0002', 'SPVMAPPING', 'Mendaftar Gardu Induk', '2019-01-07', 3, 'GWh');
+('WIG0001', 'SPVMAPPING', 'Pemasangan Gardu Induk', '2019-01-10', 5, 'Bobot'),
+('WIG0002', 'SPVMAPPING', 'Lembar Pengesahan Magang', '2019-01-10', 7, '%kesalahan');
 
 --
 -- Indexes for dumped tables
@@ -307,7 +301,7 @@ ALTER TABLE `tbl_wig`
 -- AUTO_INCREMENT for table `tbl_lm`
 --
 ALTER TABLE `tbl_lm`
-  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- Constraints for dumped tables
