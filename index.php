@@ -35,7 +35,6 @@
   <div class="content-wrapper">
     <?php include("content.php"); ?>
   </div>
-
   <!-- Main Footer -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2018</strong> Website Pariwisata Papua
@@ -71,12 +70,12 @@
 </script>
 <script type="text/javascript">
 
-$(document).ready(function(){
-    var counter = 1;
+$(function(){
+    var counter = $('#counter').val();
     $('#counter').val(counter);
     $("#addButton").click(function(){		
-	    if(counter>10){
-            alert("Only 10 textboxes allow");
+	    if(counter>9){
+            alert("Maksimal 10 Textbox");
             return false;
 	    }   
       
@@ -92,7 +91,7 @@ $(document).ready(function(){
 
     $("#removeButton").click(function () {
 	    if(counter==1){
-            alert("No more textbox to remove");
+            alert("Minimal 1 Textbox");
             return false;
         }
 	      counter--;

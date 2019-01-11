@@ -28,7 +28,7 @@
                     </div>
                     
                     <div class="card-body">
-                        <?php 
+                        <?php
                         
                         if (isset($_POST['submit'])){
                             
@@ -48,17 +48,19 @@
                                         target          = '$target',
                                         satuan          = '$satuan'
                                         ") or die (mysqli_error($conn));
-
+                                
                                 for ($a=0;$a<$counter;$a++) {
-                                    $lm  = $_POST["lm".$a.""];
-                                    $pic = $_POST["pic".$a.""];
-                                    $input = mysqli_query($conn,"INSERT INTO tbl_lm SET
-                                        id_wig          = '$idkategori',
-                                        lm              = '$lm',
-                                        pic             = '$pic'
-                                        ") or die (mysqli_error($conn));
+                                    $isi['lm'] = $_POST["lm".$a.""];
+                                    $isi['pic'] = $_POST["pic".$a.""];
+                                    $lm_pic[] = $isi;
                                 }
+                                $valueLM = json_encode($lm_pic);
 
+                                $input = mysqli_query($conn,"INSERT INTO tbl_lm SET
+                                        id_wig          = '$idkategori',
+                                        lm_pic          = '$valueLM'
+                                        ") or die (mysqli_error($conn));
+                                                             
                                 if ($input){
                                     echo    '<div class="row">'.
                                                 '<div class="col-md-12">'.

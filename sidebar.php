@@ -18,14 +18,7 @@
                     <p>BERANDA</p>
                 </a>
             </li>
-            <li class="nav-item">
-                <a href="?page=user" class="nav-link 
-                <?php if ($_GET['page'] == 'user' || $_GET['page'] == 'usertambah' || $_GET['page'] == 'usertambahpro' || $_GET['page'] == 'useredit'
-                         || $_GET['page'] == 'usereditpro' || $_GET['page'] == 'userhapus'){ echo "active"; } ?>">
-                <i class="nav-icon fas fa-users"></i>
-                    <p>USER</p>
-                </a>
-            </li>
+            
             <li class="nav-item">
                 <a href="?page=wig" class="nav-link 
                 <?php if ($_GET['page'] == 'wig' || $_GET['page'] == 'wigtambah' || $_GET['page'] == 'wigtambahpro' || $_GET['page'] == 'wigedit'

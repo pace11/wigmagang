@@ -73,7 +73,7 @@
                                                 <div class="form-group">
                                                     <label>Target WIG</label>
                                                     <input type="number" name="target" min="1" placeholder="masukkan target ..." class="form-control">
-                                                    <input type="text" name="counter" class="form-control" id="counter">
+                                                    <input type="hidden" name="counter" class="form-control" id="counter" value="1">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">

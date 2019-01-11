@@ -28,102 +28,51 @@
                     </div>
                     
                     <div class="card-body">
-                        <?php 
-                        
+                        <?php
+
                         if (isset($_POST['submit'])){
                             
-                            $id_kategori    = $_POST['idkategori'];
-                            $id_daerah      = $_POST['iddaerah'];
-                            $nama           = $_POST['nama'];
-                            $alamat         = $_POST['alamat'];
-                            $lat            = $_POST['lat'];
-                            $lng            = $_POST['lng'];
-                            $luasdaerah     = $_POST['luasdaerah'];
-                            $namapimpinan   = $_POST['namapimpinan'];
-                            $sarana         = $_POST['sarana'];
-                            $nama_img       = $_FILES['foto']['name'];
-                            $loc_img        = $_FILES['foto']['tmp_name'];
-                            $type_img       = $_FILES['foto']['type'];
-                            
-                            $cek            = array('png','jpg','jpeg','gif');
-                            $x              = explode('.',$nama_img);
-                            $extension      = strtolower(end($x));
-                            
+                            $idkategori     = $_POST['idkategori'];
+                            $iduser         = $_POST['iduser'];
+                            $judul          = $_POST['judul'];
+                            $tanggal        = date("Y-m-d", strtotime($_POST['tanggal']));
+                            $target         = $_POST['target'];
+                            $satuan         = $_POST['satuan'];
+                            $counter        = $_POST['counter'];
 
-                            if (empty($nama_img)){
-                                $input = mysqli_query($conn,"UPDATE tbl_pariwisata SET
-                                            id_kategori         = '$id_kategori',
-                                            id_daerah           = '$id_daerah',
-                                            nama                = '$nama',
-                                            alamat              = '$alamat',
-                                            latitude            = '$lat',
-                                            longitude           = '$lng',
-                                            luas_daerah         = '$luasdaerah',
-                                            nama_pimpinan       = '$namapimpinan',
-                                            sarana_prasarana    = '$sarana'
-                                            WHERE id_kategori = '$id_kategori'") or die (mysqli_error($conn));
-
+                                $input = mysqli_query($conn,"UPDATE tbl_wig SET
+                                        username        = '$iduser',
+                                        judul           = '$judul',
+                                        tanggal         = '$tanggal',
+                                        target          = '$target',
+                                        satuan          = '$satuan'
+                                        WHERE id_wig    = '$idkategori'
+                                        ") or die (mysqli_error($conn));
+                                
+                                for ($a=0;$a<$counter;$a++) {
+                                    $isi['lm'] = $_POST["lm".$a.""];
+                                    $isi['pic'] = $_POST["pic".$a.""];
+                                    $lm_pic[] = $isi;
+                                }
+                                $valueLM = json_encode($lm_pic);
+                                
+                                $input = mysqli_query($conn,"UPDATE tbl_lm SET
+                                        lm_pic          = '$valueLM'
+                                        WHERE id_wig    = '$idkategori'
+                                        ") or die (mysqli_error($conn));
+                                                             
                                 if ($input){
                                     echo    '<div class="row">'.
                                                 '<div class="col-md-12">'.
                                                     '<div class="alert alert-success alert-dismissible">'.
                                                     '<h5><i class="icon fa fa-check"></i> Alert!</h5>'.
-                                                    'Data berhasil diedit.</div>'.
+                                                    'Data berhasil disimpan.</div>'.
                                                 '</div>'.
                                             '</div>';
                                     echo "<meta http-equiv='refresh' content='1;
-                                    url=?page=objekwisata'>";
+                                    url=?page=wig'>";
                                 }
-                            } else {
-                                if (in_array($extension,$cek) === TRUE){
-                                    $data = mysqli_fetch_array(mysqli_query($conn, "SELECT * FROM tbl_pariwisata WHERE id_kategori='$id_kategori'"));
-                                    unlink("img/$data[nama_foto]");
-                                    $newfilename = "photo-".$id_kategori."-".$nama_img;
-                                    move_uploaded_file($loc_img,"img/$newfilename");
-
-                                    $input = mysqli_query($conn,"UPDATE tbl_pariwisata SET
-                                            id_kategori         = '$id_kategori',
-                                            id_daerah           = '$id_daerah',
-                                            nama                = '$nama',
-                                            alamat              = '$alamat',
-                                            latitude            = '$lat',
-                                            longitude           = '$lng',
-                                            luas_daerah         = '$luasdaerah',
-                                            nama_pimpinan       = '$namapimpinan',
-                                            sarana_prasarana    = '$sarana',
-                                            nama_foto           = '$newfilename'
-                                            WHERE id_kategori = '$id_kategori'") or die (mysqli_error($conn));
-
-                                    if ($input){
-                                        echo    '<div class="row">'.
-                                                    '<div class="col-md-12">'.
-                                                        '<div class="alert alert-success alert-dismissible">'.
-                                                        '<h5><i class="icon fa fa-check"></i> Alert!</h5>'.
-                                                        'Data berhasil diedit.</div>'.
-                                                    '</div>'.
-                                                '</div>';
-                                        echo "<meta http-equiv='refresh' content='1;
-                                        url=?page=objekwisata'>";
-                                    }
-                                } 
-                                else {
-                                    echo    '<div class="row">'.
-                                                '<div class="col-md-12">'.
-                                                    '<div class="alert alert-danger alert-dismissible">'.
-                                                    '<h5><i class="icon fa fa-ban"></i> Alert!</h5>'.
-                                                    'Ekstensi foto anda tidak sesuai. Ekstensi yang sesuai berupa png, jpg, jpeg, gif.</div>'.
-                                                '</div>'.
-                                                '<div class="col-md-12">'.
-                                                '<a class="btn btn-info" href="?page=objekwisataedit&id='.$id_kategori.'"><i class="fas fa-chevron-circle-left"></i> edit ulang data</a>'.
-                                                '</div>'.
-                                            '</div>';
-                                }
-                            }
-
-                            // 
-                            
-                            
-                        }
+                            } 
                         ?>
                     </div>
                     <div class="card-footer">

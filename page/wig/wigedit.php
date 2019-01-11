@@ -16,6 +16,10 @@
 <?php 
     $getdata = mysqli_query($conn, "SELECT * FROM tbl_wig WHERE id_wig='$_GET[id]'") or die (mysqli_error($koneksi));
     $data    = mysqli_fetch_array($getdata);
+
+    $getlm = mysqli_query($conn, "SELECT lm_pic FROM tbl_lm WHERE id_wig='$_GET[id]'") or die (mysqli_error($koneksi));
+    $datalm    = mysqli_fetch_array($getlm);
+
 ?>
 <div class="content">
     <div class="container-fluid">
@@ -34,7 +38,7 @@
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <form action="?page=wigtambahpro" method="post" enctype="multipart/form-data">
+                                <form action="?page=wigeditpro" method="post" enctype="multipart/form-data">
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-4"> 
@@ -47,7 +51,7 @@
                                             <div class="col-md-8">
                                                 <div class="form-group">
                                                     <label>Judul</label>
-                                                    <input type="hidden" value="<?= $id_k ?>" name="idkategori">
+                                                    <input type="hidden" value="<?= $data['id_wig'] ?>" name="idkategori">
                                                     <input type="hidden" name="iduser" value="<?= $userdata['username'] ?>">
                                                     <input type="text" class="form-control" name="judul" placeholder="masukkan judul wig ..." value="<?= $data['judul'] ?>" required>
                                                 </div>
@@ -64,7 +68,7 @@
                                                 <div class="form-group">
                                                     <label>Target WIG</label>
                                                     <input type="number" name="target" min="1" placeholder="masukkan target ..." class="form-control" value="<?= $data['target'] ?>" required>
-                                                    <input type="hidden" name="counter" class="form-control" id="counter">
+                                                    <input type="hidden" name="counter" class="form-control" id="counter" value="<?= count(json_decode($datalm['lm_pic'])) ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -74,7 +78,7 @@
                                                         <?php
                                                             $satuan = mysqli_query($conn, "SELECT * FROM tbl_lovsatuan");
                                                             while ($row = mysqli_fetch_array($satuan)){ ?>
-                                                                <option value="<?= $row['id_lovsatuan'] ?>"><?= $row['id_lovsatuan'] ?></option>
+                                                                <option value="<?= $row['id_lovsatuan'] ?>"<?php if($row['id_lovsatuan'] == $data['satuan']){echo "selected";} ?>><?= $row['id_lovsatuan'] ?></option>
                                                         <?php   }   ?>
                                                     </select>
                                                 </div>
@@ -84,15 +88,34 @@
                                             <div class="col-md-6">
                                                 <div class="form-group" id="lm-div">
                                                     <label>LM</label>
-                                                    <input type="text" class="form-control" placeholder="masukkan LM ..." name="lm0" required>
+                                                    <?php 
+                                                        $json = json_decode($datalm['lm_pic']);
+                                                        $a=0;
+                                                        foreach($json as $item) {
+                                                            echo '<div id="TextBoxDiv1'.$a.'">';
+                                                            echo '<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan LM ..." name="lm'.$a.'" value="'.$item->lm.'" required>';
+                                                            echo '</div>';
+                                                            $a++;
+                                                        }
+                                                    ?>
+                                                    
                                                 </div>
                                             </div>
                                             <div class="col-md-6">
                                                 <div class="form-group" id="pic-div">
                                                     <label>PIC</label>
-                                                    <input type="text" class="form-control" placeholder="masukkan PIC ..." name="pic0" required>
+                                                    <?php 
+                                                        $b=0;
+                                                        foreach($json as $item) {
+                                                            echo '<div id="TextBoxDiv2'.$b.'">';
+                                                            echo '<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan PIC ..." name="pic'.$b.'" value="'.$item->pic.'" required>';
+                                                            echo '</div>';
+                                                            $b++;
+                                                        }
+                                                    ?>
                                                 </div>
                                             </div>
+                                            
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">

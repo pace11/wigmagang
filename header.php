@@ -7,14 +7,16 @@ $userdata = mysqli_fetch_array($sql);
 
     function GetLM($params){
         include "lib/koneksi.php";
-        $lm = mysqli_query($conn, "SELECT * FROM tbl_lm WHERE id_wig='$params'");
+        $getlm  = mysqli_query($conn, "SELECT lm_pic FROM tbl_lm WHERE id_wig='$params'") or die (mysqli_error($koneksi));
+        $datalm = mysqli_fetch_array($getlm);
+        $json = json_decode($datalm['lm_pic']);
         $no=1;
         echo "<div class='table-responsive'><table><tr><th>No.</th><th>LM</th><th>PIC</th></tr>";
-        while($data = mysqli_fetch_array($lm)){
+        foreach($json as $item) {
             echo "<tr>";
             echo "<td>".$no."</td>";
-            echo "<td>".$data['lm']."</td>";
-            echo "<td>".$data['pic']."</td>";
+            echo "<td>".$item->lm."</td>";
+            echo "<td>".$item->pic."</td>";
             echo "</tr>";
             $no++;
         }
