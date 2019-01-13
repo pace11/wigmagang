@@ -23,7 +23,7 @@
                         <?php if ($page == 'wig') { ?>
                             <a href="?page=wigtambah" class="btn btn-info"><i class="fas fa-plus-circle"></i> Tambah Data</a>
                         <?php } else { ?>
-                            <h4>INPUT PROGRESS WIG</h4>
+                            <h4>INPUT PROGRESS WIG RIANTRI </h4>
                         <?php } ?>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
