@@ -23,7 +23,7 @@
                         <?php if ($page == 'wig') { ?>
                             <a href="?page=wigtambah" class="btn btn-info"><i class="fas fa-plus-circle"></i> Tambah Data</a>
                         <?php } else { ?>
-                            <h4>INPUT PROGRESS WIG RIANTRI </h4>
+                            <h4>INPUT PROGRESS WIG</h4>
                         <?php } ?>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -41,10 +41,12 @@
                                             <th>#</th>
                                             <th>Judul</th>
                                             <th>Tanggal</th>
+                                            <?php if ($page == 'wig') { ?>
                                             <th>Target</th>
                                             <th>Satuan</th>
                                             <th>LM & PIC</th>
-                                            <th>Aksi</th>
+                                            <?php } ?>
+                                            <th><?= ($page == 'wig') ? "Aksi" : "Input Progress" ?></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -57,6 +59,7 @@
                                                 <td><a class="btn btn-success btn-sm" href="#"><i class="fas fa-user"></i> <?= $data['id_wig'] ?></a></td>
                                                 <td><?= $data['judul'] ?></td>
                                                 <td><?= $data['tanggal'] ?></td>
+                                                <?php if ($page == 'wig') { ?>
                                                 <td><?= $data['target'] ?></td>
                                                 <td><?= $data['satuan'] ?></td>
                                                 <td>
@@ -75,9 +78,16 @@
                                                 </div>
                                                 
                                                 </td>
+                                                <?php } ?>
                                                 <td>
-                                                    <a class="btn btn-primary btn-sm" href="?page=wigedit&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-edit"></i> Edit</a>
+                                                    <?php if ($page == 'wig') { ?>
+                                                    <a class="btn btn-primary btn-sm" href="?page=wigedit&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-edit"></i> edit</a>
                                                     <a class="btn btn-danger btn-sm" href="?page=wighapus&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-trash"></i> hapus</a>
+                                                    <?php } ?>
+                                                    <?php if ($page == 'progress') { ?>
+                                                    <a class="btn btn-info btn-sm" href="?page=wigprogress&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-pencil-alt"></i> Progress WIG</a>
+                                                    <a class="btn btn-success btn-sm" href="?page=lmprogress&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-pencil-alt"></i> Progress LM</a>
+                                                    <?php } ?>
                                                 </td>
                                             </tr>
                                         <?php $no++; } ?>

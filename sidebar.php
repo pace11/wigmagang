@@ -26,22 +26,12 @@
                 <i class="nav-icon fas fa-list-ul"></i>
                     <p>WIG</p>
                 </a>
-            </li> 
-            <li class="nav-header">INPUT PROGRES</li> 
-            <li class="nav-item">
-                <a href="?page=wigprogress" class="nav-link 
-                <?php if ($_GET['page'] == 'wigprogress' || $_GET['page'] == 'wigprogresstambah' || $_GET['page'] == 'wigprogresstambahpro' || $_GET['page'] == 'wigprogressedit'
-                         || $_GET['page'] == 'wigprogressditpro' || $_GET['page'] == 'wigprogresshapus'){ echo "active"; } ?>">
-                <i class="nav-icon far fa-list-alt"></i>
-                    <p>WIG</p>
-                </a>
             </li>
             <li class="nav-item">
-                <a href="?page=lm" class="nav-link 
-                <?php if ($_GET['page'] == 'lm' || $_GET['page'] == 'lmtambah' || $_GET['page'] == 'lmtambahpro' || $_GET['page'] == 'lmedit'
-                         || $_GET['page'] == 'lmeditpro' || $_GET['page'] == 'lmhapus'){ echo "active"; } ?>">
-                <i class="nav-icon fas fa-users"></i>
-                    <p>LM</p>
+                <a href="?page=progress" class="nav-link 
+                <?php if ($_GET['page'] == 'progress' || $_GET['page'] == 'wigprogress'){ echo "active"; } ?>">
+                <i class="nav-icon far fa-list-alt"></i>
+                    <p>INPUT PROGRESS</p>
                 </a>
             </li>
         </ul>
