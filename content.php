@@ -25,6 +25,9 @@
   elseif ($page == "wiglihat")          include("page/wig/wiglihat.php");
   elseif ($page == "wighapus")          include("page/wig/wighapus.php");
 
+  // ------------- Proses WIG ----------------------
+  elseif ($page == "wigprogress")       include("page/wig/wig.php");
+
 else echo"Konten tidak ada";
 
 ?>

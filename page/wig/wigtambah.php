@@ -82,10 +82,10 @@
                                                     <select class="form-control" name="satuan">
                                                     <option value="" style="display:none;">-- pilih salah satu --</option>
                                                     <?php
-                                                    $satuan = mysqli_query($conn, "SELECT * FROM tbl_lovsatuan");
-                                                    while ($row = mysqli_fetch_array($satuan)){
-                                                        echo "<option value=$row[id_lovsatuan]>$row[id_lovsatuan]</option> \n";
-                                                    }
+                                                        $satuan = mysqli_query($conn, "SELECT * FROM tbl_lovsatuan");
+                                                        while ($row = mysqli_fetch_array($satuan)){
+                                                            echo "<option value=$row[id_lovsatuan]>$row[id_lovsatuan]</option> \n";
+                                                        }
                                                     ?>
                                                     </select>
                                                 </div>

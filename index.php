@@ -37,7 +37,7 @@
   </div>
   <!-- Main Footer -->
   <footer class="main-footer">
-    <strong>Copyright &copy; 2018</strong> Website Pariwisata Papua
+    <strong>Copyright &copy; 2018</strong> Sistem Informasi Week Important Goal | PLN Bulungan
   </footer>
 </div>
 <!-- ./wrapper -->

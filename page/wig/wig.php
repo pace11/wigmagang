@@ -20,7 +20,11 @@
                 <div class="card card-default">
                     
                     <div class="card-header">
-                        <a href="?page=wigtambah" class="btn btn-info"><i class="fas fa-plus-circle"></i> Tambah Data</a>
+                        <?php if ($page == 'wig') { ?>
+                            <a href="?page=wigtambah" class="btn btn-info"><i class="fas fa-plus-circle"></i> Tambah Data</a>
+                        <?php } else { ?>
+                            <h4>INPUT PROGRESS WIG</h4>
+                        <?php } ?>
                         <div class="card-tools">
                             <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                             <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
