@@ -14,11 +14,11 @@
     </div>
 </div>
 <?php 
-    $getdata = mysqli_query($conn, "SELECT * FROM tbl_wig WHERE id_wig='$_GET[id]'") or die (mysqli_error($koneksi));
+    $getdata = mysqli_query($conn, "SELECT * FROM tbl_wig WHERE id_wig='$_GET[id]'") or die (mysqli_error($conn));
     $data    = mysqli_fetch_array($getdata);
 
-    $getval = mysqli_query($conn, "SELECT lm_pic FROM tbl_wigprogress WHERE id_wig='$_GET[id]'") or die (mysqli_error($koneksi));
-    $dataval    = mysqli_fetch_array($getlm);
+    $getval = mysqli_query($conn, "SELECT value_wigprogress FROM tbl_wigprogress WHERE id_wig='$_GET[id]'") or die (mysqli_error($conn));
+    $dataval    = mysqli_fetch_array($getval);
 
 ?>
 <div class="content">
