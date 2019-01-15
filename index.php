@@ -14,7 +14,6 @@
 
   <title>Administrator | WIG</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <link rel="stylesheet" href="dist/css/adminlte.min.css">
   <link rel="stylesheet" href="plugins/datatables/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="plugins/datepicker/datepicker3.css">
@@ -34,6 +33,7 @@
 
   <div class="content-wrapper">
     <?php include("content.php"); ?>
+
   </div>
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -45,29 +45,14 @@
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>
 <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="dist/js/adminlte.js"></script>
+<script src="plugins/chartjs-old/Chart.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
 <script src="plugins/datatables/jquery.dataTables.min.js"></script>
 <script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
 <script src="plugins/datepicker/bootstrap-datepicker.js"></script>
 <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="plugins/fastclick/fastclick.js"></script>
-<script src="plugins/chart.js/Chart.min.js"></script>
 <script src="dist/js/demo.js"></script>
-<script src="dist/js/pages/dashboard3.js"></script>
-<script>
-  $(function () {
-    $("#example1").DataTable();
-  });
-</script>
-<script>
-  $(function () {
-    $("#datepicker").datepicker({
-      format: 'dd-mm-yyyy',
-      autoclose: true, 
-      todayHighlight: true
-    });
-  });
-</script>
 <script type="text/javascript">
 
 $(function(){
