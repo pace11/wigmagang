@@ -54,6 +54,7 @@
 <script src="plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <script src="plugins/fastclick/fastclick.js"></script>
 <script src="dist/js/demo.js"></script>
+<<<<<<< HEAD
 <script>
   $(document).ready(function () {
     /* ChartJS
@@ -261,6 +262,25 @@
   })
 </script>
 <script>
+=======
+<script src="dist/js/pages/dashboard3.js"></script>
+<script src="plugins/chart.js/Chart.min.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+  });
+</script>
+<script>
+  $(function () {
+    $("#datepicker").datepicker({
+      format: 'dd-mm-yyyy',
+      autoclose: true, 
+      todayHighlight: true
+    });
+  });
+</script>
+<script type="text/javascript">
+>>>>>>> 66b166d0cf5263579f233ac0959277cd0121095e
 $(function(){
     var counter = $('#counter').val();
     $('#counter').val(counter);

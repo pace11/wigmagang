@@ -55,7 +55,6 @@
                                             </div>
                                             <div class="col-md-8">
                                                 <div class="form-group">
-                                                    <input type="hidden" value="<?= $data['id_wig'] ?>" name="idwig">
                                                     <a href="#" class="btn btn-success btn-sm"><?= $data['judul'] ?></a>
                                                 </div>
                                             </div>
@@ -122,26 +121,27 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <?php } ?>
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <button id="lihatgrafik" class="btn btn-info btn-sm"><i class="fas fa-chart-bar"></i> lihat grafik</button>
                                                 <button id="editwigprogress" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> ubah nilai realisasi</button>
                                             </div>
                                         </div>
+                                        <?php } ?>
                                         <form action="?page=wigprogress&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
                                         
                                         <div class="row">
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Tanggal</label>
-                                                    <input type="text" class="form-control" id="datepicker" placeholder="masukkan tanggal ..." name="tanggal" required>
+                                                    <input type="hidden" value="<?= $data['id_wig'] ?>" name="idwig">
+                                                    <input type="text" class="form-control" id="datepicker" placeholder="masukkan tanggal ..." name="tanggal" autocomplete="off" required>
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label>Realisasi</label>
-                                                    <input type="number" name="realisasi" min="1" placeholder="masukkan nilai realisasi ..." class="form-control" required>
+                                                    <input type="number" name="realisasi" min="1" placeholder="masukkan nilai realisasi ..." class="form-control" autocomplete="off" required>
                                                     <input type="hidden" value="<?= $hitval ?>" name="hitval">
                                                     
                                                     <?php
@@ -175,8 +175,10 @@
                         $tanggal = date("Y-m-d", strtotime($_POST['tanggal']));
                         $realisasi = $_POST['realisasi'];
                         $idwig = $_POST['idwig'];
-                        $arr = json_decode($_POST['DataArray']);
-                        $hitval = isset($_POST['hitval']);
+                        $hitval = $_POST['hitval'];
+                        if ($hitval > 0){
+                            $arr = json_decode($_POST['DataArray']);
+                        }
 
                         $isi['tanggal'] = $tanggal;
                         $isi['realisasi'] = $realisasi;
@@ -184,17 +186,30 @@
                         $nilValue1 = json_encode($value);
                         $result = $nilValue1;
                         
-                        if ($hitval > 0)
+                        if ($hitval == 0) 
+                        {
+                            $query = mysqli_query($conn, "INSERT INTO tbl_wigprogress SET
+                                                    id_wig = '$idwig',
+                                                    value_wigprogress = '$result'
+                                                    ") or die (mysqli_error($conn));
+                        }
+                        else if ($hitval > 0)
                         {
                             $nilValue2 = json_decode($nilValue1);
                             $merge = array_merge($arr,$nilValue2);
                             $result = json_encode($merge);
-                        }
 
-                        $query = mysqli_query($conn, "UPDATE tbl_wigprogress SET
+                            $query = mysqli_query($conn, "UPDATE tbl_wigprogress SET
                                                     value_wigprogress = '$result'
                                                     WHERE id_wig = '$idwig'
                                                     ") or die (mysqli_error($conn));
+                        }
+
+                        echo "<meta http-equiv='refresh' content='1;
+                        url=?page=wigprogress&id=".$idwig."'>";
+
+                        
+                        
 
                     }
                     
