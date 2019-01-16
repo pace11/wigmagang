@@ -2,12 +2,12 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">WIG PROGRESS</h1>
+                <h1 class="m-0 text-dark">WIG</h1>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="?page=beranda">Beranda</a></li>
-                    <li class="breadcrumb-item active">WIG PROGRESS</li>
+                    <li class="breadcrumb-item active">WIG</li>
                 </ol>
             </div>
         </div>
@@ -130,92 +130,28 @@
                                         </div>
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <button id="editwigprogress" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> ubah nilai realisasi</button>
+                                                <button id="lihatgrafik" class="btn btn-danger btn-sm"><i class="fas fa-chart-bar"></i> lihat grafik</button>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-6">
+                                                <div class="chart">
+                                                    <canvas id="barChart" style="height:230px"></canvas>
+                                                </div>
                                             </div>
                                         </div>
                                         <?php } ?>
                                         <form action="?page=wigprogress&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
                                         
-                                        <div class="row">
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Tanggal</label>
-                                                    <input type="hidden" value="<?= $data['id_wig'] ?>" name="idwig">
-                                                    <input type="text" class="form-control" id="datepicker" placeholder="masukkan tanggal ..." name="tanggal" autocomplete="off" required>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label>Realisasi</label>
-                                                    <input type="number" name="realisasi" min="1" placeholder="masukkan nilai realisasi ..." class="form-control" autocomplete="off" required>
-                                                    <input type="hidden" value="<?= $hitval ?>" name="hitval">
-                                                    
-                                                    <?php
-                                                        if ($hitval>0) 
-                                                        {
-                                                            $datas = json_decode($dataval['value_wigprogress']);
-                                                            foreach($datas as $items){
-                                                                $isi['tanggal'] = $items->tanggal;
-                                                                $isi['realisasi'] = $items->realisasi;
-                                                                $dataArr[] = $isi;
-                                                            }
-                                                                $valDataArr = json_encode($dataArr);
-                                                    ?>
-                                                    <textarea style="display:none;" name="DataArray"><?= $valDataArr ?></textarea>
-                                                    <?php } ?>
-                                                </div>
-                                            </div>
-                                        </div>
+    
                                     </div>
                             </div>
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input type="submit" name="submit" class="btn btn-info" value="Simpan">
-                        <a href="?page=progress" class="btn btn-danger">Batal</a>
+                        <a href="?page=wig" class="btn btn-info">Kembali</a>
                     </div>
                     </form>
-                    <?php 
-                    
-                    if (isset($_POST['submit'])) {
-                        $tanggal = date("Y-m-d", strtotime($_POST['tanggal']));
-                        $realisasi = $_POST['realisasi'];
-                        $idwig = $_POST['idwig'];
-                        $hitval = $_POST['hitval'];
-                        if ($hitval > 0){
-                            $arr = json_decode($_POST['DataArray']);
-                        }
-
-                        $isi['tanggal'] = $tanggal;
-                        $isi['realisasi'] = $realisasi;
-                        $value[] = $isi;
-                        $nilValue1 = json_encode($value);
-                        $result = $nilValue1;
-                        
-                        if ($hitval == 0) 
-                        {
-                            $query = mysqli_query($conn, "INSERT INTO tbl_wigprogress SET
-                                                    id_wig = '$idwig',
-                                                    value_wigprogress = '$result'
-                                                    ") or die (mysqli_error($conn));
-                        }
-                        else if ($hitval > 0)
-                        {
-                            $nilValue2 = json_decode($nilValue1);
-                            $merge = array_merge($arr,$nilValue2);
-                            $result = json_encode($merge);
-
-                            $query = mysqli_query($conn, "UPDATE tbl_wigprogress SET
-                                                    value_wigprogress = '$result'
-                                                    WHERE id_wig = '$idwig'
-                                                    ") or die (mysqli_error($conn));
-                        }
-
-                        echo "<meta http-equiv='refresh' content='1;
-                        url=?page=wigprogress&id=".$idwig."'>";
-                    }
-                    
-                    ?>
                 </div>
             </div>
         </div>

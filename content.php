@@ -23,6 +23,7 @@
   elseif ($page == "wigedit")           include("page/wig/wigedit.php");
   elseif ($page == "wigeditpro")        include("page/wig/wigeditpro.php");
   elseif ($page == "wiglihat")          include("page/wig/wiglihat.php");
+  elseif ($page == "wigview")           include("page/wig/wigview.php");
   elseif ($page == "wighapus")          include("page/wig/wighapus.php");
 
   // ------------- Proses ----------------------

@@ -81,6 +81,7 @@
                                                 <?php } ?>
                                                 <td>
                                                     <?php if ($page == 'wig') { ?>
+                                                    <a class="btn btn-warning btn-sm" href="?page=wigview&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-eye"></i> view</a>
                                                     <a class="btn btn-primary btn-sm" href="?page=wigedit&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-edit"></i> edit</a>
                                                     <a class="btn btn-danger btn-sm" href="?page=wighapus&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-trash"></i> hapus</a>
                                                     <?php } ?>

@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 13 Jan 2019 pada 23.40
--- Versi server: 10.1.37-MariaDB
--- Versi PHP: 7.3.0
+-- Generation Time: Jan 16, 2019 at 07:00 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_lm`
+-- Table structure for table `tbl_lm`
 --
 
 CREATE TABLE `tbl_lm` (
@@ -35,7 +35,7 @@ CREATE TABLE `tbl_lm` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_lm`
+-- Dumping data for table `tbl_lm`
 --
 
 INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm_pic`) VALUES
@@ -45,7 +45,7 @@ INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm_pic`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_lovsatuan`
+-- Table structure for table `tbl_lovsatuan`
 --
 
 CREATE TABLE `tbl_lovsatuan` (
@@ -53,7 +53,7 @@ CREATE TABLE `tbl_lovsatuan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_lovsatuan`
+-- Dumping data for table `tbl_lovsatuan`
 --
 
 INSERT INTO `tbl_lovsatuan` (`id_lovsatuan`) VALUES
@@ -222,7 +222,7 @@ INSERT INTO `tbl_lovsatuan` (`id_lovsatuan`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_user`
+-- Table structure for table `tbl_user`
 --
 
 CREATE TABLE `tbl_user` (
@@ -232,7 +232,7 @@ CREATE TABLE `tbl_user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_user`
+-- Dumping data for table `tbl_user`
 --
 
 INSERT INTO `tbl_user` (`username`, `password`, `role`) VALUES
@@ -243,7 +243,7 @@ INSERT INTO `tbl_user` (`username`, `password`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_wig`
+-- Table structure for table `tbl_wig`
 --
 
 CREATE TABLE `tbl_wig` (
@@ -256,7 +256,7 @@ CREATE TABLE `tbl_wig` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `tbl_wig`
+-- Dumping data for table `tbl_wig`
 --
 
 INSERT INTO `tbl_wig` (`id_wig`, `username`, `judul`, `tanggal`, `target`, `satuan`) VALUES
@@ -266,7 +266,7 @@ INSERT INTO `tbl_wig` (`id_wig`, `username`, `judul`, `tanggal`, `target`, `satu
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `tbl_wigprogress`
+-- Table structure for table `tbl_wigprogress`
 --
 
 CREATE TABLE `tbl_wigprogress` (
@@ -276,69 +276,77 @@ CREATE TABLE `tbl_wigprogress` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dumping data for table `tbl_wigprogress`
+--
+
+INSERT INTO `tbl_wigprogress` (`id_wigproses`, `id_wig`, `value_wigprogress`) VALUES
+(2, 'WIG0001', '[{\"tanggal\":\"2019-01-14\",\"realisasi\":\"80\"},{\"tanggal\":\"2019-02-14\",\"realisasi\":\"50\"},{\"tanggal\":\"2019-03-14\",\"realisasi\":\"40\"}]'),
+(3, 'WIG0002', '[{\"tanggal\":\"2019-01-17\",\"realisasi\":\"70\"},{\"tanggal\":\"2019-02-18\",\"realisasi\":\"47\"},{\"tanggal\":\"2019-03-20\",\"realisasi\":\"35\"}]');
+
+--
 -- Indexes for dumped tables
 --
 
 --
--- Indeks untuk tabel `tbl_lm`
+-- Indexes for table `tbl_lm`
 --
 ALTER TABLE `tbl_lm`
   ADD PRIMARY KEY (`id_lm`),
   ADD KEY `id_wig` (`id_wig`);
 
 --
--- Indeks untuk tabel `tbl_lovsatuan`
+-- Indexes for table `tbl_lovsatuan`
 --
 ALTER TABLE `tbl_lovsatuan`
   ADD PRIMARY KEY (`id_lovsatuan`);
 
 --
--- Indeks untuk tabel `tbl_user`
+-- Indexes for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
   ADD PRIMARY KEY (`username`);
 
 --
--- Indeks untuk tabel `tbl_wig`
+-- Indexes for table `tbl_wig`
 --
 ALTER TABLE `tbl_wig`
   ADD PRIMARY KEY (`id_wig`),
   ADD KEY `username` (`username`);
 
 --
--- Indeks untuk tabel `tbl_wigprogress`
+-- Indexes for table `tbl_wigprogress`
 --
 ALTER TABLE `tbl_wigprogress`
   ADD PRIMARY KEY (`id_wigproses`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_lm`
+-- AUTO_INCREMENT for table `tbl_lm`
 --
 ALTER TABLE `tbl_lm`
-  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
--- AUTO_INCREMENT untuk tabel `tbl_wigprogress`
+-- AUTO_INCREMENT for table `tbl_wigprogress`
 --
 ALTER TABLE `tbl_wigprogress`
-  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- Ketidakleluasaan untuk tabel pelimpahan (Dumped Tables)
+-- Constraints for dumped tables
 --
 
 --
--- Ketidakleluasaan untuk tabel `tbl_lm`
+-- Constraints for table `tbl_lm`
 --
 ALTER TABLE `tbl_lm`
   ADD CONSTRAINT `tbl_lm_ibfk_1` FOREIGN KEY (`id_wig`) REFERENCES `tbl_wig` (`id_wig`);
 
 --
--- Ketidakleluasaan untuk tabel `tbl_wig`
+-- Constraints for table `tbl_wig`
 --
 ALTER TABLE `tbl_wig`
   ADD CONSTRAINT `tbl_wig_ibfk_1` FOREIGN KEY (`username`) REFERENCES `tbl_user` (`username`);

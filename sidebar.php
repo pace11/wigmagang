@@ -22,7 +22,7 @@
             <li class="nav-item">
                 <a href="?page=wig" class="nav-link 
                 <?php if ($_GET['page'] == 'wig' || $_GET['page'] == 'wigtambah' || $_GET['page'] == 'wigtambahpro' || $_GET['page'] == 'wigedit'
-                         || $_GET['page'] == 'wigeditpro' || $_GET['page'] == 'wighapus'){ echo "active"; } ?>">
+                         || $_GET['page'] == 'wigeditpro' || $_GET['page'] == 'wighapus' || $_GET['page'] == 'wigview'){ echo "active"; } ?>">
                 <i class="nav-icon fas fa-list-ul"></i>
                     <p>WIG</p>
                 </a>
