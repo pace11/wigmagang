@@ -53,7 +53,7 @@
                                         <tbody>
                                             <?php
                                             $no = 1;
-                                            $sql = mysqli_query($conn,"SELECT * FROM tbl_wig") or die (mysqli_error($conn));
+                                            $sql = mysqli_query($conn,"SELECT * FROM tbl_wig WHERE username='$userdata[username]'") or die (mysqli_error($conn));
                                             while($data = mysqli_fetch_array($sql)){ ?>
                                                 <tr>    
                                                     <td><?= $no ?></td>

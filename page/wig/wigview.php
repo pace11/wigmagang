@@ -63,6 +63,18 @@
                                             <div class="row">
                                                 <div class="col-md-2">
                                                     <div class="form-group">
+                                                        <label>User</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <a href="#" class="btn btn-success btn-sm"><?= $data['username'] ?></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
                                                         <label>Tanggal</label>
                                                     </div>
                                                 </div>

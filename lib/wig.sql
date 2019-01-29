@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 16, 2019 at 07:00 PM
+-- Generation Time: Jan 29, 2019 at 05:14 AM
 -- Server version: 10.1.37-MariaDB
 -- PHP Version: 7.2.12
 
@@ -39,8 +39,8 @@ CREATE TABLE `tbl_lm` (
 --
 
 INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm_pic`) VALUES
-(13, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Muhammad Iriansyah\"},{\"lm\":\"Survey 2\",\"pic\":\"Fahmi Roihanul Firdaus\"}]'),
-(14, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Thufail Erlangga\"}]');
+(18, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Pace\"}]'),
+(19, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Mace Riantri\"},{\"lm\":\"Survey 2\",\"pic\":\"Mace Rekha\"}]');
 
 -- --------------------------------------------------------
 
@@ -238,7 +238,9 @@ CREATE TABLE `tbl_user` (
 INSERT INTO `tbl_user` (`username`, `password`, `role`) VALUES
 ('ADMIN', 'admin12345', 0),
 ('MANAGER', 'manager10', 1),
-('SPVMAPPING', '12345', 2);
+('SPVKEUANGAN', 'keu111', 2),
+('SPVMAPPING', '12345', 2),
+('SPVPEMASARAN', 'pem111', 2);
 
 -- --------------------------------------------------------
 
@@ -260,8 +262,8 @@ CREATE TABLE `tbl_wig` (
 --
 
 INSERT INTO `tbl_wig` (`id_wig`, `username`, `judul`, `tanggal`, `target`, `satuan`) VALUES
-('WIG0001', 'SPVMAPPING', 'Pemasangan Gardu Induk', '2019-01-10', 5, 'Bobot'),
-('WIG0002', 'SPVMAPPING', 'Lembar Pengesahan Magang', '2019-01-10', 7, '%kesalahan');
+('WIG0001', 'SPVPEMASARAN', 'Pemasangan Listrik', '2019-01-29', 60, 'Bobot'),
+('WIG0002', 'SPVMAPPING', 'Pembongkaran Meteran', '2019-01-30', 60, 'Bobot');
 
 -- --------------------------------------------------------
 
@@ -280,8 +282,7 @@ CREATE TABLE `tbl_wigprogress` (
 --
 
 INSERT INTO `tbl_wigprogress` (`id_wigproses`, `id_wig`, `value_wigprogress`) VALUES
-(2, 'WIG0001', '[{\"tanggal\":\"2019-01-14\",\"realisasi\":\"80\"},{\"tanggal\":\"2019-02-14\",\"realisasi\":\"50\"},{\"tanggal\":\"2019-03-14\",\"realisasi\":\"40\"}]'),
-(3, 'WIG0002', '[{\"tanggal\":\"2019-01-17\",\"realisasi\":\"70\"},{\"tanggal\":\"2019-02-18\",\"realisasi\":\"47\"},{\"tanggal\":\"2019-03-20\",\"realisasi\":\"35\"}]');
+(8, 'WIG0002', '[{\"tanggal\":\"2019-01-30\",\"target\":\"100\",\"realisasi\":\"60\"},{\"tanggal\":\"2019-02-19\",\"target\":\"60\",\"realisasi\":\"87\"}]');
 
 --
 -- Indexes for dumped tables
@@ -327,13 +328,13 @@ ALTER TABLE `tbl_wigprogress`
 -- AUTO_INCREMENT for table `tbl_lm`
 --
 ALTER TABLE `tbl_lm`
-  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_wigprogress`
 --
 ALTER TABLE `tbl_wigprogress`
-  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- Constraints for dumped tables

@@ -19,6 +19,7 @@
                 </a>
             </li>
             
+            <?php if ($userdata['role'] == 1 || $userdata['role'] == 2 ) { ?>
             <li class="nav-item">
                 <a href="?page=wig" class="nav-link 
                 <?php if ($_GET['page'] == 'wig' || $_GET['page'] == 'wigtambah' || $_GET['page'] == 'wigtambahpro' || $_GET['page'] == 'wigedit'
@@ -34,6 +35,16 @@
                     <p>INPUT PROGRESS</p>
                 </a>
             </li>
+            <?php } else { ?>
+            <li class="nav-item">
+                <a href="?page=user" class="nav-link 
+                <?php if ($_GET['page'] == 'user' || $_GET['page'] == 'useredit' || $_GET['page'] == 'usereditpro' || $_GET['page'] == 'userhapus'
+                         || $_GET['page'] == 'usertambah' || $_GET['page'] == 'usertambahpro'){ echo "active"; } ?>">
+                <i class="nav-icon far fa-list-alt"></i>
+                    <p>MANAJEMEN USER</p>
+                </a>
+            </li>
+            <?php } ?>
         </ul>
     </nav>
 </div>

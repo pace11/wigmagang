@@ -3,12 +3,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">WIG</h1>
+                    <h1 class="m-0 text-dark">BERANDA</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="?page=beranda">Beranda</a></li>
-                        <li class="breadcrumb-item active">WIG</li>
+                        <li class="breadcrumb-item active">BERANDA</li>
                     </ol>
                 </div>
             </div>
@@ -22,7 +22,7 @@
                     <div class="card card-default">
                         
                         <div class="card-header">
-                            <a href="?page=wigtambah" class="btn btn-info"><i class="fas fa-plus-circle"></i> Tambah Data</a>
+                            <h4>LIST DATA WIG</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -39,6 +39,7 @@
                                                 <th>No</th>
                                                 <th>#</th>
                                                 <th>Judul</th>
+                                                <th>User</th>
                                                 <th>Tanggal</th>
                                                 <th>Target</th>
                                                 <th>Satuan</th>
@@ -49,12 +50,14 @@
                                         <tbody>
                                             <?php
                                             $no = 1;
-                                            $sql = mysqli_query($conn,"SELECT * FROM tbl_wig") or die (mysqli_error($conn));
+                                            $sql = mysqli_query($conn,"SELECT * FROM tbl_wig
+                                                                       JOIN tbl_user WHERE tbl_wig.username=tbl_user.username") or die (mysqli_error($conn));
                                             while($data = mysqli_fetch_array($sql)){ ?>
                                                 <tr>    
                                                     <td><?= $no ?></td>
                                                     <td><a class="btn btn-success btn-sm" href="#"><i class="fas fa-user"></i> <?= $data['id_wig'] ?></a></td>
                                                     <td><?= $data['judul'] ?></td>
+                                                    <td><a href="#" class="btn btn-info btn-sm"><?= $data['username'] ?></a></td>
                                                     <td><?= $data['tanggal'] ?></td>
                                                     <td><?= $data['target'] ?></td>
                                                     <td><?= $data['satuan'] ?></td>
@@ -75,8 +78,13 @@
                                                     
                                                     </td>
                                                     <td>
+                                                    <?php if ($userdata['username'] == $data['username']) { ?>
+                                                        <a class="btn btn-warning btn-sm" href="?page=wigview&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-eye"></i> view</a>
                                                         <a class="btn btn-primary btn-sm" href="?page=wigedit&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-edit"></i> Edit</a>
                                                         <a class="btn btn-danger btn-sm" href="?page=wighapus&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-trash"></i> hapus</a>
+                                                    <?php } else { ?>
+                                                        <a class="btn btn-warning btn-sm" href="?page=wigview&id=<?php echo $data['id_wig']; ?>"><i class="fas fa-eye"></i> view</a>
+                                                    <?php } ?>
                                                     </td>
                                                 </tr>
                                             <?php $no++; } ?>
@@ -114,3 +122,31 @@
         </div>
     </div>
 </div>
+    <!-- Main Footer -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2018</strong> Sistem Informasi Week Important Goal | PLN Bulungan
+    </footer>
+</div>
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="plugins/chartjs-old/Chart.min.js"></script>
+<script src="plugins/fastclick/fastclick.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+<script src="dist/js/demo.js"></script>
+<script src="plugins/datatables/jquery.dataTables.min.js"></script>
+<script src="plugins/datatables/dataTables.bootstrap4.min.js"></script>
+<script src="plugins/datepicker/bootstrap-datepicker.js"></script>
+<script>
+  $(function () {
+    $("#example1").DataTable();
+  });
+</script>
+<script>
+  $(function () {
+    $("#datepicker").datepicker({
+      format: 'dd-mm-yyyy',
+      autoclose: true, 
+      todayHighlight: true
+    });
+  });
+</script>
