@@ -3,12 +3,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">User Edit</h1>
+                    <h1 class="m-0 text-dark">Profile Edit</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="?page=beranda">Beranda</a></li>
-                        <li class="breadcrumb-item active">User Edit</li>
+                        <li class="breadcrumb-item active">Profile Edit</li>
                     </ol>
                 </div>
             </div>
@@ -33,27 +33,25 @@
                             
                             if (isset($_POST['submit'])){
                                 
-                                $role           = $_POST['role'];
                                 $username       = strtoupper($_POST['username']);
                                 $password       = $_POST['password'];
 
-                                    $input = mysqli_query($conn,"UPDATE tbl_user SET
-                                            password        = '$password',
-                                            role            = '$role'
-                                            WHERE username  = '$username'  
-                                    ") or die (mysqli_error($conn));
+                                $input = mysqli_query($conn,"UPDATE tbl_user SET
+                                        password        = '$password'
+                                        WHERE username  = '$username'  
+                                ") or die (mysqli_error($conn));
 
-                                    if ($input){
-                                        echo    '<div class="row">'.
-                                                    '<div class="col-md-12">'.
-                                                        '<div class="alert alert-success alert-dismissible">'.
-                                                        '<h5><i class="icon fa fa-check"></i> Alert!</h5>'.
-                                                        'Data berhasil disimpan.</div>'.
-                                                    '</div>'.
-                                                '</div>';
-                                        echo "<meta http-equiv='refresh' content='1;
-                                        url=?page=user'>";
-                                    }
+                                if ($input){
+                                    echo    '<div class="row">'.
+                                                '<div class="col-md-12">'.
+                                                    '<div class="alert alert-success alert-dismissible">'.
+                                                    '<h5><i class="icon fa fa-check"></i> Alert!</h5>'.
+                                                    'Data berhasil disimpan.</div>'.
+                                                '</div>'.
+                                            '</div>';
+                                    echo "<meta http-equiv='refresh' content='1;
+                                    url=?page=profile&id=$username'>";
+                                }
                             }
                             ?>
                         </div>

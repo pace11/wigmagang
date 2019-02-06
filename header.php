@@ -24,8 +24,6 @@ $userdata = mysqli_fetch_array($sql);
     }
 ?>
 
-
-
 <ul class="navbar-nav">
     <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fa fa-bars"></i></a>
@@ -34,7 +32,7 @@ $userdata = mysqli_fetch_array($sql);
 
 <ul class="navbar-nav ml-auto">
     <li class="nav-item">
-        <a class="btn btn-info" style="margin-right:5px;" href="#">
+        <a class="btn btn-info" style="margin-right:5px;" href="?page=profile&id=<?= $userdata['username'] ?>" data-toggle="tooltip" data-placement="bottom" title="Lihat Profile">
         <i class="fas fa-user"></i> Halo, <strong><?= strtoupper($userdata['username']) ?></strong>
         </a>
     </li>

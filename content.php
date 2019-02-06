@@ -15,7 +15,6 @@
   elseif ($page == "userlihat")          include("page/user/userlihat.php");
   elseif ($page == "userhapus")          include("page/user/userhapus.php");
 
-
   // ------------- WIG ----------------------
   elseif ($page == "wig")                include("page/wig/wig.php");
   elseif ($page == "wigtambah")          include("page/wig/wigtambah.php");
@@ -26,9 +25,14 @@
   elseif ($page == "wigview")            include("page/wig/wigview.php");
   elseif ($page == "wighapus")           include("page/wig/wighapus.php");
 
-  // ------------- Proses ----------------------
+  // ------------- PROGRESS ----------------------
   elseif ($page == "progress")           include("page/wig/wig.php");
   elseif ($page == "wigprogress")        include("page/wig/wigprogress.php");
+  elseif ($page == "lmprogress")         include("page/lm/lmprogress.php");
+
+  // ------------- PROFIL ----------------------
+  elseif ($page == "profile")             include("page/profile/profile.php");
+  elseif ($page == "profileeditpro")      include("page/profile/profileeditpro.php");
 
 else echo"Konten tidak ada";
 

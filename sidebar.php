@@ -30,7 +30,7 @@
             </li>
             <li class="nav-item">
                 <a href="?page=progress" class="nav-link 
-                <?php if ($_GET['page'] == 'progress' || $_GET['page'] == 'wigprogress'){ echo "active"; } ?>">
+                <?php if ($_GET['page'] == 'progress' || $_GET['page'] == 'wigprogress' || $_GET['page'] == 'lmprogress'){ echo "active"; } ?>">
                 <i class="nav-icon far fa-list-alt"></i>
                     <p>INPUT PROGRESS</p>
                 </a>

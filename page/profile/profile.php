@@ -3,12 +3,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">User Edit</h1>
+                    <h1 class="m-0 text-dark">Profile Edit</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="?page=beranda">Beranda</a></li>
-                        <li class="breadcrumb-item active">User Edit</li>
+                        <li class="breadcrumb-item active">Profile Edit</li>
                     </ol>
                 </div>
             </div>
@@ -37,31 +37,39 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-6">
-                                    <form action="?page=usereditpro" method="post" enctype="multipart/form-data">
-                                        <div class="card-body">
-                                            <div class="form-group">
-                                                <label>Hak Akses/Role</label>
-                                                <select name="role" class="form-control">
-                                                    <option value="1" <?= ($data['role'] == 1) ? "SELECTED" : ""; ?>>MANAGER</option>
-                                                    <option value="2" <?= ($data['role'] == 2) ? "SELECTED" : ""; ?>>SUPERVISOR</option>
-                                                </select>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Username</label>
-                                                <input type="text" class="form-control" name="username" style="text-transform:uppercase;" placeholder="masukkan username ..." value="<?= $data['username'] ?>" required>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Password</label>
-                                                <input id="password-field" type="password" class="form-control" name="password" placeholder="masukkan password ..." value="<?= $data['password'] ?>" required>
-                                                <span toggle="#password-field" class="fa fa-lg fa-eye field-icon toggle-password"></span>
-                                            </div>
+                                    <div class="card-body">
+                                        <div class="form-group">
+                                            <?php 
+                                            if ($data['role'] == 0){
+                                                echo "<button class='btn btn-success btn-sm'><i class='fa fa-user'></i> ADMIN</button>";
+                                            } elseif ($data['role'] == 1){
+                                                echo "<button class='btn btn-success btn-sm'><i class='fa fa-user'></i> MANAGER</button>";
+                                            } else {
+                                                echo "<button class='btn btn-success btn-sm'><i class='fa fa-user'></i> SUPERVISOR</button>";
+                                            }
+                                            ?>
                                         </div>
+                                        <form action="?page=profileeditpro" method="post" enctype="multipart/form-data">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <?php if ($data['role'] == 0) { ?>
+                                                <input type="text" class="form-control" name="username" style="text-transform:uppercase;" placeholder="masukkan username ..." value="<?= $data['username'] ?>" required>
+                                            <?php } else { ?>
+                                                <input type="text" class="form-control" name="username" value="<?= $data['username'] ?>" readonly>
+                                            <?php } ?>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>Password</label>
+                                            <input id="password-field" type="password" class="form-control" name="password" placeholder="masukkan password ..." value="<?= $data['password'] ?>" required>
+                                            <span toggle="#password-field" class="fa fa-lg fa-eye field-icon toggle-password"></span>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="submit" class="btn btn-info" value="Simpan">
-                            <a href="?page=user" class="btn btn-danger">Batal</a>
+                            <a href="?page=beranda" class="btn btn-danger">Batal</a>
                         </div>
                         </form>
                     </div>
