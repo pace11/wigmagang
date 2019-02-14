@@ -34,6 +34,8 @@
                             if (isset($_POST['submit'])){
                                 
                                 $idkategori     = $_POST['idkategori'];
+                                $polaritas      = $_POST['polaritas'];
+                                $tipe           = $_POST['tipe'];
                                 $iduser         = $_POST['iduser'];
                                 $judul          = $_POST['judul'];
                                 $tanggal        = date("Y-m-d", strtotime($_POST['tanggal']));
@@ -43,6 +45,8 @@
 
                                     $input = mysqli_query($conn,"INSERT INTO tbl_wig SET
                                             id_wig          = '$idkategori',
+                                            polaritas       = '$polaritas',
+                                            tipe            = '$tipe',
                                             username        = '$iduser',
                                             judul           = '$judul',
                                             tanggal         = '$tanggal',
@@ -53,6 +57,7 @@
                                     for ($a=0;$a<$counter;$a++) {
                                         $isi['lm'] = $_POST["lm".$a.""];
                                         $isi['pic'] = $_POST["pic".$a.""];
+                                        $isi['data'] = [];
                                         $lm_pic[] = $isi;
                                     }
                                     $valueLM = json_encode($lm_pic);

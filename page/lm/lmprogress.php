@@ -15,8 +15,14 @@
         </div>
     </div>
     <?php 
-        $getdata = mysqli_query($conn, "SELECT * FROM tbl_lm WHERE id_wig='$_GET[id]'") or die (mysqli_error($conn));
+        $getdata = mysqli_query($conn, "SELECT * FROM tbl_lm 
+                                        JOIN tbl_wig ON tbl_lm.id_wig=tbl_wig.id_wig
+                                        WHERE tbl_lm.id_wig='$_GET[id]'") or die (mysqli_error($conn));
         $data    = mysqli_fetch_array($getdata);
+
+        $lm = mysqli_query($conn, "SELECT lm_pic FROM tbl_lm WHERE id_wig='$_GET[id]'") or die (mysqli_error($conn));
+        $getlm = mysqli_fetch_array($lm);
+
 
     ?>
     <div class="content">
@@ -36,223 +42,112 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <div class="col-md-4"> 
-                                                    <div class="form-group">
-                                                        <button class="btn btn-success"><i class="fas fa-map-marker"></i> <?= $data['id_wig'] ?></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label>Judul</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <a href="#" class="btn btn-success btn-sm"><?= $data['judul'] ?></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label>Username</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-8">
-                                                    <div class="form-group">
-                                                        <a href="#" class="btn btn-success btn-sm"><?= $data['username'] ?></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label>Tanggal</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <a href="#" class="btn btn-success btn-sm"><i class="fas fa-calendar-alt"></i> <?= date('d-m-Y', strtotime($data['tanggal'])) ?></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label>Target WIG</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <a href="#" class="btn btn-success btn-sm"><?= $data['target'] ?></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-2">
-                                                    <div class="form-group">
-                                                        <label>Satuan</label>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <a href="#" class="btn btn-success btn-sm"><?= $data['satuan'] ?></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <?php if ($hitval) { 
-                                            $datgraf = json_decode($dataval['value_wigprogress']);
-                                                foreach($datgraf as $datas) {
-                                                    $isitanggal[] = date("M",strtotime($datas->tanggal));
-                                                    $isirealisasi[] = $datas->realisasi;
-                                                }
-                                            ?>
-                                            
-                                            <div class="row">
-                                                <table class="table table-bordered">
-                                                    <thead>
-                                                        <tr>
-                                                            <th style="width: 10px">#</th>
-                                                            <th>Tanggal</th>
-                                                            <th>Target</th>
-                                                            <th>Realisasi</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                    <?php
-                                                        $json = json_decode($dataval['value_wigprogress']);
-                                                        $no=1;
-                                                        foreach($json as $item) {
-                                                            echo "<tr>";
-                                                            echo "<td>".$no."</td>";
-                                                            echo "<td><a href='#' class='btn btn-success btn-sm'><i class='fas fa-calendar-alt'></i> ".$item->tanggal."</a></td>";
-                                                            echo "<td><a href='#' class='btn btn-info btn-sm'>".$item->target."</a></td>";
-                                                            echo "<td><a href='#' class='btn btn-danger btn-sm'>".$item->realisasi."</a></td>";
-                                                            echo "</tr>";
-                                                            $no++;
-                                                        }
-                                                    ?>
-                                                    </tbody>
-                                                </table>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                        <button id="editwigprogressBtn" class="btn btn-danger btn-sm"><i class="fas fa-edit"></i> ubah nilai realisasi</button>
-                                                        <button id="sembunyiBtn" class="btn btn-info btn-sm">sembunyikan <i class="fas fa-chevron-up"></i></button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div id="editrealisasi" class="row" style="background-color:#f2f2f2;padding:10px;border-radius:5px;margin-bottom:10px;">
-                                                <div class="col-md-12">
-                                                    <form action="?page=wigprogress&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <label>Tanggal</label>
-                                                            <input type="hidden" value="<?= $data['id_wig'] ?>" name="idwig">
-                                                            <input type="hidden" name="counter" class="form-control" id="counter" value="<?= count(json_decode($dataval['value_wigprogress'])) ?>">
-                                                            <div class="form-group" id="tgl-div">
-                                                            <?php
-                                                                $a=0;
-                                                                foreach($json as $tanggal) {
-                                                                    echo '<div id="TextBoxDiv1'.$a.'">';
-                                                                    echo '<input type="date" style="margin-top:10px" class="form-control" placeholder="masukkan tanggal ..." name="tgl'.$a.'" value="'.$tanggal->tanggal.'" required>';
-                                                                    echo '</div>';
-                                                                    $a++;
-                                                                }
-                                                            ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Target</label>
-                                                            <div class="form-group" id="target-div">
-                                                            <?php 
-                                                                $b=0;
-                                                                foreach($json as $target) {
-                                                                    echo '<div id="TextBoxDiv2'.$b.'">';
-                                                                    echo '<input type="text" style="margin-top:10px" class="form-control" placeholder="masukkan nilai target ..." name="target'.$b.'" value="'.$target->target.'" required>';
-                                                                    echo '</div>';
-                                                                    $b++;
-                                                                }
-                                                            ?>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <label>Realisasi</label>
-                                                            <div class="form-group" id="real-div">
-                                                            <?php 
-                                                                $c=0;
-                                                                foreach($json as $real) {
-                                                                    echo '<div id="TextBoxDiv3'.$c.'">';
-                                                                    echo '<input type="text" style="margin-top:10px" class="form-control" placeholder="masukkan nilai realisasi ..." name="real'.$c.'" value="'.$real->realisasi.'" required>';
-                                                                    echo '</div>';
-                                                                    $c++;
-                                                                }
-                                                            ?>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <input type='button' class="btn btn-info" value='tambah tanggal dan realisasi' id='addButton'>
-                                                                <input type='button' class="btn btn-danger" value='hapus tanggal dan realisasi' id='removeButton'>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-md-6">
-                                                            <div class="form-group">
-                                                                <input type="submit" name="edit" class="btn btn-success" value="Simpan Perubahan">
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    </form>
-                                                </div>
-                                            </div>
-                                            <?php } ?>
-                                            <form action="?page=wigprogress&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
-                                            
-                                            <div class="row">
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Tanggal</label>
-                                                        <input type="hidden" value="<?= $data['id_wig'] ?>" name="idwig">
-                                                        <input type="text" class="form-control" id="datepicker" placeholder="masukkan tanggal ..." name="tanggal" autocomplete="off" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Target</label>
-                                                        <input type="number" name="target" min="1" placeholder="masukkan nilai realisasi ..." class="form-control" autocomplete="off" required>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <label>Realisasi</label>
-                                                        <input type="number" name="realisasi" min="1" placeholder="masukkan nilai realisasi ..." class="form-control" autocomplete="off">
-                                                        <input type="hidden" value="<?= $hitval ?>" name="hitval">
-                                                        
-                                                        <?php
-                                                            if ($hitval>0) 
-                                                            {
-                                                                $datas = json_decode($dataval['value_wigprogress']);
-                                                                foreach($datas as $items){
-                                                                    $isi['tanggal'] = $items->tanggal;
-                                                                    $isi['target'] = $items->target;
-                                                                    $isi['realisasi'] = $items->realisasi;
-                                                                    $dataArr[] = $isi;
-                                                                }
-                                                                    $valDataArr = json_encode($dataArr);
-                                                        ?>
-                                                        <textarea style="display:none;" name="DataArray"><?= $valDataArr ?></textarea>
-                                                        <?php } ?>
-                                                    </div>
+                                    <div class="card-body">
+                                        <div class="row">
+                                            <div class="col-md-4"> 
+                                                <div class="form-group">
+                                                    <button class="btn btn-success"><i class="fas fa-map-marker"></i> <?= $data['id_wig'] ?></button>
                                                 </div>
                                             </div>
                                         </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Judul</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <a href="#" class="btn btn-success btn-sm"><?= $data['judul'] ?></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Username</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8">
+                                                <div class="form-group">
+                                                    <a href="#" class="btn btn-success btn-sm"><?= $data['username'] ?></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Tanggal</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-calendar-alt"></i> <?= date('d-m-Y', strtotime($data['tanggal'])) ?></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Target WIG</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <a href="#" class="btn btn-success btn-sm"><?= $data['target'] ?></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Satuan</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <a href="#" class="btn btn-success btn-sm"><?= $data['satuan'] ?></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <hr>
+                                        <div class="row">
+                                            <div class="col-md-2">
+                                                <div class="form-group">
+                                                    <label>Pilih LM</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <?php 
+                                                    $datalm = json_decode($getlm['lm_pic']);
+                                                        foreach($datalm as $lmitems){
+                                                            $isi['lm']  = $lmitems->lm;
+                                                            $isi['pic'] = $lmitems->pic;
+                                                            $isi['data'] = $lmitems->data;
+                                                            $dataarrLm[] = $isi;
+                                                        }
+                                                            $dataarrLm = json_encode($dataarrLm);
+                                                    ?>
+                                                    <textarea style="display:none;" id="dataarrlm"><?= $dataarrLm ?></textarea>
+                                                    <select name="" class="form-control" id="lmdata">
+                                                    <?php
+                                                        $no = 0;
+                                                        $datalm = json_decode($getlm['lm_pic']);
+                                                        foreach($datalm as $lmitems){
+                                                            echo "<option value='$no'>LM : ".$lmitems->lm." - PIC : ".$lmitems->pic."</option>";
+                                                            $no++;
+                                                        }
+                                                    ?>
+                                                    </select>
+                                                    <input type="text" id="counter">
+                                                </div>
+                                                <div class="form-group" id="week-div"></div>
+                                                <div class="form-group" id="target-div"></div>
+                                                <div class="form-group" id="real-div"></div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -360,35 +255,53 @@
   });
 </script>
 <script>
+  
   $(document).ready(function(){
-    $('#sembunyiBtn').hide();
-    $('#editrealisasi').hide();
+    var nil = 1,
+        count = "",
+        arrdatalmkey = "",
+        newTextBoxDiv1 = "",
+        newTextBoxDiv2 = "",
+        newTextBoxDiv3 = "";
 
-    $('#editwigprogressBtn').click(function(){
-      $('#sembunyiBtn').show(500);
-      $('#editrealisasi').show(500);
-    });
-
-    $('#sembunyiBtn').click(function(){
-      $('#sembunyiBtn').hide(500);
-      $('#editrealisasi').hide(500);
+    $('#lmdata').change(function(){
+        nil = $(':selected').val();
+        var arrdatalm = JSON.parse($('#dataarrlm').val());
+        // console.log(arrdatalm);
+        $.each(arrdatalm, function(i, val){
+            if (nil == i) {
+                count = arrdatalm[i].data.length;
+                arrdatalmkey = arrdatalm[i].data;
+                $('#counter').val(count);
+                $.each(arrdatalmkey, function(j,key){
+                    newTextBoxDiv1 = $(document.createElement('div')).attr("id", 'TextBoxDiv1' + j);
+                    newTextBoxDiv2 = $(document.createElement('div')).attr("id", 'TextBoxDiv2' + j);
+                    newTextBoxDiv3 = $(document.createElement('div')).attr("id", 'TextBoxDiv3' + j);
+                    newTextBoxDiv1.after().html('<input type="text" style="margin-top:10px;" class="form-control" name="week'+j+'" value="'+arrdatalmkey[j].week+'" required>');
+                    newTextBoxDiv2.after().html('<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan nilai target ..." name="target'+j+'" value="'+arrdatalmkey[j].target+'" required>');
+                    newTextBoxDiv3.after().html('<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan nilai realisasi ..." name="real'+j+'" value="'+arrdatalmkey[j].realisasi+'" required>');
+                    newTextBoxDiv1.appendTo("#week-div");
+                    newTextBoxDiv2.appendTo("#target-div");
+                    newTextBoxDiv3.appendTo("#real-div");
+                });
+            }
+        });
     });
   });
 </script>
 <script>
 $(function(){
     var counter = $('#counter').val();
-    console.log(counter);
     $('#counter').val(counter);
     $("#addButton").click(function(){		
 
         var newTextBoxDiv1 = $(document.createElement('div')).attr("id", 'TextBoxDiv1' + counter),
             newTextBoxDiv2 = $(document.createElement('div')).attr("id", 'TextBoxDiv2' + counter),
             newTextBoxDiv3 = $(document.createElement('div')).attr("id", 'TextBoxDiv3' + counter);
-        newTextBoxDiv1.after().html('<input type="date" style="margin-top:10px;" class="form-control" placeholder="masukkan tanggal ..." name="tgl'+counter+'" required>');
+        newTextBoxDiv1.after().html('<input type="date" style="margin-top:10px;" class="form-control" name="week'+counter+'" value="week'+counter+'" required>');
         newTextBoxDiv2.after().html('<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan nilai target ..." name="target'+counter+'" required>');
         newTextBoxDiv3.after().html('<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan nilai realisasi ..." name="real'+counter+'" required>');
-        newTextBoxDiv1.appendTo("#tgl-div");
+        newTextBoxDiv1.appendTo("#week-div");
         newTextBoxDiv2.appendTo("#target-div");
         newTextBoxDiv3.appendTo("#real-div");		
         counter++;

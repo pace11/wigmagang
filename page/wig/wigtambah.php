@@ -54,6 +54,30 @@
                                                 </div>
                                             </div>
                                             <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Polaritas</label>
+                                                        <select name="polaritas" class="form-control">
+                                                            <option style="display:none;">-- pilih salah satu --</option>
+                                                            <option value="positif">Positif</option>
+                                                            <option value="negatif">Negatif</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label>Tipe</label>
+                                                        <select name="tipe" class="form-control">
+                                                            <option style="display:none;">-- pilih salah satu --</option>
+                                                            <option value="komulatif">Komulatif</option>
+                                                            <option value="nonkomulatif">Non Komulatif</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <label>Judul</label>
