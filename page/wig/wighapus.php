@@ -46,6 +46,7 @@
                                 if(isset($_POST['submit'])){
                                     $id = $_POST['id'];
                                     $delete = mysqli_query($conn,"DELETE FROM tbl_lm WHERE id_wig='$id'") or die (mysqli_error($conn));
+                                    $delete = mysqli_query($conn,"DELETE FROM tbl_wigprogress WHERE id_wig='$id'") or die (mysqli_error($conn));
                                     $delete = mysqli_query($conn,"DELETE FROM tbl_wig WHERE id_wig='$id'") or die (mysqli_error($conn));
                                     if ($delete){
                                         echo    '<div class="row">'.

@@ -14,7 +14,14 @@
             </div>
         </div>
     </div>
-    <?php 
+    <?php
+
+        if (isset($_POST['submit'])) {
+            $lmid = $_POST['opttgl'];
+
+            echo $lmid;
+        }
+
         $getdata = mysqli_query($conn, "SELECT * FROM tbl_lm 
                                         JOIN tbl_wig ON tbl_lm.id_wig=tbl_wig.id_wig
                                         WHERE tbl_lm.id_wig='$_GET[id]'") or die (mysqli_error($conn));
@@ -112,95 +119,13 @@
                                             </div>
                                         </div>
                                         <hr>
-                                        <?php if($hitlm) { ?>
-                                        <form action="?page=lmprogressenter&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
-                                        <div class="row">
-                                            <div class="col-md-2">
-                                                <div class="form-group">
-                                                    <label>Pilih LM</label>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <?php 
-                                                        $datalm = json_decode($getlm['lm_pic']);
-                                                        foreach($datalm as $lmitems){
-                                                            $isi['lm']  = $lmitems->lm;
-                                                            $isi['pic'] = $lmitems->pic;
-                                                            $isi['polaritas'] = $lmitems->polaritas;
-                                                            $isi['tipe'] = $lmitems->tipe;
-                                                            $isi['data'] = $lmitems->data;
-                                                            $dataarrLm[] = $isi;
-                                                        }
-                                                            $dataarrLm = json_encode($dataarrLm);
-                                                    ?>
-                                                    <textarea style="display:none;" id="dataarrlm"><?= $dataarrLm ?></textarea>
-                                                    <select name="lmdata" class="form-control" id="lmdata">
-                                                    <?php
-                                                        $no = 0;
-                                                        $datalm = json_decode($getlm['lm_pic']);
-                                                        foreach($datalm as $lmitems){
-                                                            echo "<option value='$no'>LM : ".$lmitems->lm." - PIC : ".$lmitems->pic."</option>";
-                                                            $no++;
-                                                        }
-                                                    ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <?php 
-                                        $idtgl = 0;
-                                        foreach($datalm as $lmitems){?>
-                                        <div class="row tglitems" id="<?= $idtgl ?>">
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <label>Tanggal</label>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <?php
-                                                            foreach($lmitems->data as $lmtglitems){ ?>
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="date" class="form-control" value="<?= date('m-d-Y', strtotime($lmtglitems->tanggal)) ?>">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <?php foreach($lmtglitems->data as $itemcontent) { ?>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->week ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->target ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->realisasi ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        <?php    
-                                                            }
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>  
-                                        </div>
-                                        <?php $idtgl++; }} ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="submit" class="btn btn-info" value="Proses">
-                            <a href="?page=progress" class="btn btn-danger">Batal</a>
+                            <a href="?page=lmprogress&id=<?= $_GET['id'] ?>" class="btn btn-danger">Batal</a>
                         </div>
                         </form>
                     </div>
@@ -234,34 +159,6 @@
       format: 'dd-mm-yyyy',
       autoclose: true, 
       todayHighlight: true
-    });
-  });
-</script>
-<script>
-  
-  $(document).ready(function(){
-    var tgl = '',
-        updtgl = '',
-        week = '',
-        target = '',
-        realisasi = '',
-        strtgl = '';
-    $('.tglitems').each(function(){
-        $('#'+this.id).hide();
-    });
-    $('.tglcontent').hide();
-    $('#lmdata').change(function(){
-        nil = $(':selected').val();
-        var arrdatalm = JSON.parse($('#dataarrlm').val());
-        $.each(arrdatalm, function(i, val){
-            if (nil == i) {
-                $('#'+i).show();
-                $('.tglcontent').show();                
-
-            } else {
-                $('#'+i).hide();
-            }
-        });
     });
   });
 </script>

@@ -29,6 +29,7 @@
   elseif ($page == "progress")           include("page/wig/wig.php");
   elseif ($page == "wigprogress")        include("page/wig/wigprogress.php");
   elseif ($page == "lmprogress")         include("page/lm/lmprogress.php");
+  elseif ($page == "lmprogressenter")    include("page/lm/lmprogressenter.php");
 
   // ------------- PROFIL ----------------------
   elseif ($page == "profile")             include("page/profile/profile.php");

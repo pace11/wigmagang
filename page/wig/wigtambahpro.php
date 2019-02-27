@@ -42,6 +42,7 @@
                                 $target         = $_POST['target'];
                                 $satuan         = $_POST['satuan'];
                                 $counter        = $_POST['counter'];
+                                $tanggalnow     = date("Y-m-d H:i:s");
 
                                     $input = mysqli_query($conn,"INSERT INTO tbl_wig SET
                                             id_wig          = '$idkategori',
@@ -57,14 +58,40 @@
                                     for ($a=0;$a<$counter;$a++) {
                                         $isi['lm'] = $_POST["lm".$a.""];
                                         $isi['pic'] = $_POST["pic".$a.""];
-                                        $isi['data'] = [];
+                                        $isi['polaritas'] = $_POST["pol".$a.""];
+                                        $isi['tipe'] = $_POST["tip".$a.""];
+                                        $isi['data'] = [
+                                            [
+                                                "tanggal" => $tanggal,
+                                                "data"    => [
+                                                    [
+                                                        "week" => "week1",
+                                                        "target" => 0,
+                                                        "realisasi" => 0,
+                                                    ],
+                                                ]
+                                            ],
+                                        ];
                                         $lm_pic[] = $isi;
                                     }
+
+                                    $isia['tanggal'] = $tanggal;
+                                    $isia['target'] = 0;
+                                    $isia['realisasi'] = 0;
+                                    $wig_item [] = $isia;
+
+                                    $valueWIG = json_encode($wig_item);
                                     $valueLM = json_encode($lm_pic);
 
                                     $input = mysqli_query($conn,"INSERT INTO tbl_lm SET
                                             id_wig          = '$idkategori',
                                             lm_pic          = '$valueLM'
+                                            ") or die (mysqli_error($conn));
+                                    
+                                    $input = mysqli_query($conn,"INSERT INTO tbl_wigprogress SET
+                                            id_wig              = '$idkategori',
+                                            value_wigprogress   = '$valueWIG',
+                                            update_at           = '$tanggalnow'
                                             ") or die (mysqli_error($conn));
                                                                 
                                     if ($input){

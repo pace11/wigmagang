@@ -15,7 +15,9 @@
         </div>
     </div>
     <?php 
-        $getdata = mysqli_query($conn, "SELECT * FROM tbl_wig WHERE id_wig='$_GET[id]'") or die (mysqli_error($conn));
+        $getdata = mysqli_query($conn, "SELECT * FROM tbl_wig
+                                        JOIN tbl_wigprogress ON tbl_wig.id_wig=tbl_wigprogress.id_wig
+                                        WHERE tbl_wig.id_wig='$_GET[id]'") or die (mysqli_error($conn));
         $data    = mysqli_fetch_array($getdata);
 
         $getval = mysqli_query($conn, "SELECT value_wigprogress FROM tbl_wigprogress WHERE id_wig='$_GET[id]'") or die (mysqli_error($conn));
@@ -58,7 +60,7 @@
                                                     <div class="form-group">
                                                         <a href="#" class="btn btn-success btn-sm"><?= $data['judul'] ?></a>
                                                     </div>
-                                                </div>
+                                                </div>  
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-2">
@@ -69,6 +71,30 @@
                                                 <div class="col-md-8">
                                                     <div class="form-group">
                                                         <a href="#" class="btn btn-success btn-sm"><?= $data['username'] ?></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Polaritas</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <a href="#" class="btn btn-success btn-sm"><?= $data['polaritas'] ?></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Tipe</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-8">
+                                                    <div class="form-group">
+                                                        <a href="#" class="btn btn-success btn-sm"><?= $data['tipe'] ?></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -105,6 +131,18 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <a href="#" class="btn btn-success btn-sm"><?= $data['satuan'] ?></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label>Terakhir Diupdate</label>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <input type="text" class="form-control" value="<?= date('d-M-Y H:i:s', strtotime($data['update_at'])) ?> - oleh USER ini"readonly>
                                                     </div>
                                                 </div>
                                             </div>
@@ -185,7 +223,7 @@
 </div>
 <!-- Main Footer -->
 <footer class="main-footer">
-    <strong>Copyright &copy; 2018</strong> Sistem Informasi Week Important Goal | PLN Bulungan
+    <strong>Copyright &copy; 2018</strong> Sistem Informasi Wildly Important Goal | PLN Bulungan
   </footer>
 </div>
 <script src="plugins/jquery/jquery.min.js"></script>

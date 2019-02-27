@@ -113,7 +113,6 @@
                                         </div>
                                         <hr>
                                         <?php if($hitlm) { ?>
-                                        <form action="?page=lmprogressenter&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group">
@@ -135,7 +134,7 @@
                                                             $dataarrLm = json_encode($dataarrLm);
                                                     ?>
                                                     <textarea style="display:none;" id="dataarrlm"><?= $dataarrLm ?></textarea>
-                                                    <select name="lmdata" class="form-control" id="lmdata">
+                                                    <select name="" class="form-control" id="lmdata">
                                                     <?php
                                                         $no = 0;
                                                         $datalm = json_decode($getlm['lm_pic']);
@@ -148,61 +147,33 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <?php 
-                                        $idtgl = 0;
-                                        foreach($datalm as $lmitems){?>
-                                        <div class="row tglitems" id="<?= $idtgl ?>">
-                                            <div class="col-md-12">
-                                                <div class="row">
-                                                    <div class="col-md-2">
-                                                        <label>Tanggal</label>
-                                                    </div>
-                                                    <div class="col-md-10">
-                                                        <?php
-                                                            foreach($lmitems->data as $lmtglitems){ ?>
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="date" class="form-control" value="<?= date('m-d-Y', strtotime($lmtglitems->tanggal)) ?>">
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <?php foreach($lmtglitems->data as $itemcontent) { ?>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->week ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->target ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->realisasi ?>">
-                                                                    </div>
-                                                                </div>
-                                                                <?php } ?>
-                                                            </div>
-                                                        <?php    
-                                                            }
-                                                        ?>
-                                                    </div>
+                                        <div class="row" id="tgl-row">
+                                            <div class="col-md-2">
+                                                <label>Tanggal</label>
+                                            </div>
+                                            <div class="col-md-4">
+                                                <div class="form-group tgl-content">
+                                                
                                                 </div>
-                                            </div>  
+                                            </div>
                                         </div>
-                                        <?php $idtgl++; }} ?>
+                                        <?php } ?>
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card-footer">
-                            <input type="submit" name="submit" class="btn btn-info" value="Proses">
+                            <input type="submit" name="submit" class="btn btn-info" value="Simpan">
                             <a href="?page=progress" class="btn btn-danger">Batal</a>
                         </div>
                         </form>
+                        <?php 
+                        
+                        if (isset($_POST['submit'])) {
+                    
+                        }
+
+                        ?>
                     </div>
                 </div>
             </div>
@@ -240,26 +211,23 @@
 <script>
   
   $(document).ready(function(){
-    var tgl = '',
-        updtgl = '',
-        week = '',
-        target = '',
-        realisasi = '',
-        strtgl = '';
-    $('.tglitems').each(function(){
-        $('#'+this.id).hide();
-    });
-    $('.tglcontent').hide();
+    $('#tgl-row').hide();
     $('#lmdata').change(function(){
         nil = $(':selected').val();
         var arrdatalm = JSON.parse($('#dataarrlm').val());
         $.each(arrdatalm, function(i, val){
             if (nil == i) {
-                $('#'+i).show();
-                $('.tglcontent').show();                
-
-            } else {
-                $('#'+i).hide();
+                $('#tgl-row').show();
+                var isi = "";
+                    isi += '<select id="pace" class="form-control">';
+                    $.each(arrdatalm[i].data, function(j,key){
+                        isi += '<option value="'+arrdatalm[i].data[j].tanggal+'">'+arrdatalm[i].data[j].tanggal+'</option>';
+                    });
+                    isi += '</select>';
+                    $('.tgl-content').html(isi);
+                    $( "#pace option:selected").change(function(){
+                        console,log(this.val());
+                    });
             }
         });
     });

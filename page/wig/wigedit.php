@@ -29,7 +29,7 @@
                     <div class="card card-default">
                         
                         <div class="card-header">
-                            <h4><i class="fas fa-file-alt"></i> Form Tambah Data</h4>
+                            <h4><i class="fas fa-file-alt"></i> Form Edit Data</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -39,12 +39,34 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <form action="?page=wigeditpro" method="post" enctype="multipart/form-data">
                                         <div class="card-body">
                                             <div class="row">
                                                 <div class="col-md-4"> 
                                                     <div class="form-group">
                                                         <button class="btn btn-success"><i class="fas fa-map-marker"></i> <?= $data['id_wig'] ?></button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        <form action="?page=wigeditpro" method="post" enctype="multipart/form-data">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Polaritas</label>
+                                                        <select class="form-control" name="polaritas">
+                                                            <option style="display:none;">-- pilih salah satu --</option>
+                                                            <option value="positif" <?= ($data['polaritas'] == 'positif') ? 'selected' : '' ?>>Positif</option>
+                                                            <option value="negatif" <?= ($data['polaritas'] == 'negatif') ? 'selected' : '' ?>>Negatif</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4">
+                                                    <div class="form-group">
+                                                        <label>Tipe</label>
+                                                        <select class="form-control" name="tipe">
+                                                            <option style="display:none;">-- pilih salah satu --</option>
+                                                            <option value="komulatif" <?= ($data['tipe'] == 'komulatif') ? 'selected' : '' ?>>Komulatif</option>
+                                                            <option value="nonkomulatif" <?= ($data['tipe'] == 'nonkomulatif') ? 'selected' : '' ?>>Non Komulatif</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -70,6 +92,7 @@
                                                         <label>Target WIG</label>
                                                         <input type="number" name="target" min="1" placeholder="masukkan target ..." class="form-control" value="<?= $data['target'] ?>" required>
                                                         <input type="hidden" name="counter" class="form-control" id="counter" value="<?= count(json_decode($datalm['lm_pic'])) ?>">
+                                                        <input type="hidden" name="counter-one" class="form-control" value="<?= count(json_decode($datalm['lm_pic'])) ?>">
                                                     </div>
                                                 </div>
                                                 <div class="col-md-4">
@@ -86,7 +109,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <div class="form-group" id="lm-div">
                                                         <label>LM</label>
                                                         <?php 
@@ -94,7 +117,7 @@
                                                             $a=0;
                                                             foreach($json as $item) {
                                                                 echo '<div id="TextBoxDiv1'.$a.'">';
-                                                                echo '<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan LM ..." name="lm'.$a.'" value="'.$item->lm.'" required>';
+                                                                echo '<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan LM ..." name="lm'.$a.'" value="'.$item->lm.'" autocomplete="off" readonly required>';
                                                                 echo '</div>';
                                                                 $a++;
                                                             }
@@ -102,21 +125,52 @@
                                                         
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <div class="form-group" id="pic-div">
+                                                    <textarea name="step-one" style="display:none;" class="form-control"><?= json_encode($json) ?></textarea>
+                                                    <textarea name="step-one" style="display:none;" class="form-control"><?= json_encode($json) ?></textarea>
                                                         <label>PIC</label>
                                                         <?php 
                                                             $b=0;
                                                             foreach($json as $item) {
                                                                 echo '<div id="TextBoxDiv2'.$b.'">';
-                                                                echo '<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan PIC ..." name="pic'.$b.'" value="'.$item->pic.'" required>';
+                                                                echo '<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan PIC ..." name="pic'.$b.'" value="'.$item->pic.'" autocomplete="off" readonly required>';
                                                                 echo '</div>';
                                                                 $b++;
                                                             }
                                                         ?>
                                                     </div>
                                                 </div>
-                                                
+                                                <div class="col-md-3">
+                                                    <div class="form-group" id="pol-div">
+                                                        <label>Polaritas</label>
+                                                        <?php 
+                                                            $c=0;
+                                                            foreach($json as $item) { ?>
+                                                                <div id="TextBoxDiv3<?= $c ?>">
+                                                                    <input type="text" style="margin-top:10px;" class="form-control" value="<?= $item->polaritas ?>" readonly>
+                                                                </div>
+                                                        <?php
+                                                                $c++;    
+                                                            }
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group" id="tip-div">
+                                                        <label>Tipe</label>
+                                                        <?php 
+                                                            $d=0;
+                                                            foreach($json as $item) { ?>
+                                                                <div id="TextBoxDiv4<?= $d ?>">
+                                                                    <input type="text" style="margin-top:10px;" class="form-control" value="<?= $item->tipe ?>" readonly>  
+                                                                </div>
+                                                        <?php
+                                                                $d++;    
+                                                            }
+                                                        ?>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-6">
@@ -180,11 +234,17 @@ $(function(){
 	    }   
       
         var newTextBoxDiv1 = $(document.createElement('div')).attr("id", 'TextBoxDiv1' + counter),
-            newTextBoxDiv2 = $(document.createElement('div')).attr("id", 'TextBoxDiv2' + counter);
-        newTextBoxDiv1.after().html('<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan LM ..." name="lm'+counter+'" required>');
-        newTextBoxDiv2.after().html('<input type="text" style="margin-top:10px;" class="form-control" placeholder="masukkan PIC ..." name="pic'+counter+'" required>');
+            newTextBoxDiv2 = $(document.createElement('div')).attr("id", 'TextBoxDiv2' + counter),
+            newTextBoxDiv3 = $(document.createElement('div')).attr("id", 'TextBoxDiv3' + counter),
+            newTextBoxDiv4 = $(document.createElement('div')).attr("id", 'TextBoxDiv4' + counter);
+        newTextBoxDiv1.after().html('<input type="text" style="margin-top:10px;" autocomplete="off" class="form-control" placeholder="masukkan LM ..." name="lm'+counter+'" required>');
+        newTextBoxDiv2.after().html('<input type="text" style="margin-top:10px;" autocomplete="off" class="form-control" placeholder="masukkan PIC ..." name="pic'+counter+'" required>');
+        newTextBoxDiv3.after().html('<select style="margin-top:10px;" class="form-control" name="pol'+counter+'"><option style="display:none;">--pilih salah satu --</option><option value="positif">Positif</option><option value="negatif">Negatif</option></select>');
+        newTextBoxDiv4.after().html('<select style="margin-top:10px;" class="form-control" name="tip'+counter+'"><option style="display:none;">--pilih salah satu --</option><option value="komulatif">Komulatif</option><option value="nonkomulatif">Non Komulatif</option></select>');
         newTextBoxDiv1.appendTo("#lm-div");
-        newTextBoxDiv2.appendTo("#pic-div");		
+        newTextBoxDiv2.appendTo("#pic-div");	
+        newTextBoxDiv3.appendTo("#pol-div");
+        newTextBoxDiv4.appendTo("#tip-div");	
         counter++;
         $('#counter').val(counter);
     });
@@ -198,6 +258,8 @@ $(function(){
         $('#counter').val(counter);
         $("#TextBoxDiv1" + counter).remove();
         $("#TextBoxDiv2" + counter).remove();
+        $("#TextBoxDiv3" + counter).remove();
+        $("#TextBoxDiv4" + counter).remove();
     });
   });
 </script> 

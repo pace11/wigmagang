@@ -40,6 +40,8 @@
                                 $target         = $_POST['target'];
                                 $satuan         = $_POST['satuan'];
                                 $counter        = $_POST['counter'];
+                                $counterone     = $_POST['counter-one'];
+                                $stepone        = json_decode($_POST['step-one']);
 
                                     $input = mysqli_query($conn,"UPDATE tbl_wig SET
                                             username        = '$iduser',
@@ -50,15 +52,42 @@
                                             WHERE id_wig    = '$idkategori'
                                             ") or die (mysqli_error($conn));
                                     
-                                    for ($a=0;$a<$counter;$a++) {
-                                        $isi['lm'] = $_POST["lm".$a.""];
-                                        $isi['pic'] = $_POST["pic".$a.""];
-                                        $lm_pic[] = $isi;
-                                    }
-                                    $valueLM = json_encode($lm_pic);
+                                    if ($counter == $counterone){
+                                        $resultFinal = json_encode($stepone);
+                                    }   elseif ($counter > $counterone) {
+                                            for ($a=$counterone;$a<$counter;$a++) {
+                                                $isi['lm'] = $_POST["lm".$a.""];
+                                                $isi['pic'] = $_POST["pic".$a.""];
+                                                $isi['polaritas'] = $_POST["pol".$a.""];
+                                                $isi['tipe'] = $_POST["tip".$a.""];
+                                                $isi['data'] = [
+                                                    [
+                                                        "tanggal" => $tanggal,
+                                                        "data"    => [
+                                                            [
+                                                                "week" => "week1",
+                                                                "target" => 0,
+                                                                "realisasi" => 0,
+                                                            ],
+                                                        ]
+                                                    ],
+                                                ];
+                                                $lm_pic[] = $isi;
+                                            }
+                                                $valueLM = json_encode($lm_pic);
+                                                $arraytwo = json_decode($valueLM); 
+                                                $merge = array_merge($stepone,$arraytwo);
+                                                $resultFinal = json_encode($merge);
+                                    }   elseif ($counter < $counterone){
+                                            for ($a=0;$a<$counter;$a++){
+                                                $isi = json_encode($stepone[$a]);
+                                            }
+                                                $result1[] = json_decode($isi);
+                                                $resultFinal = json_encode($result1);
+                                    }  
                                     
                                     $input = mysqli_query($conn,"UPDATE tbl_lm SET
-                                            lm_pic          = '$valueLM'
+                                            lm_pic          = '$resultFinal'
                                             WHERE id_wig    = '$idkategori'
                                             ") or die (mysqli_error($conn));
                                                                 

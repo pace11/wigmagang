@@ -54,7 +54,7 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Polaritas</label>
                                                         <select name="polaritas" class="form-control">
@@ -64,9 +64,7 @@
                                                         </select>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-3">
+                                                <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Tipe</label>
                                                         <select name="tipe" class="form-control">
@@ -117,16 +115,36 @@
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <div class="form-group" id="lm-div">
                                                         <label>LM</label>
                                                         <input type="text" autocomplete="off" class="form-control" placeholder="masukkan LM ..." name="lm0" required>
                                                     </div>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-3">
                                                     <div class="form-group" id="pic-div">
                                                         <label>PIC</label>
                                                         <input type="text" autocomplete="off" class="form-control" placeholder="masukkan PIC ..." name="pic0" required>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group" id="pol-div">
+                                                        <label>Polaritas</label>
+                                                        <select class="form-control" name="pol0">
+                                                            <option style="display:none;">-- pilih salah satu --</option>
+                                                            <option value="positif">Positif</option>
+                                                            <option value="negatif">Negatif</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group" id="tipe-div">
+                                                        <label>Tipe</label>
+                                                        <select class="form-control" name="tip0">
+                                                            <option style="display:none;">-- pilih salah satu --</option>
+                                                            <option value="komulatif">Komulatif</option>
+                                                            <option value="nonkomulatif">Non Komulatif</option>
+                                                        </select>
                                                     </div>
                                                 </div>
                                             </div>
@@ -192,11 +210,17 @@ $(function(){
 	    }   
       
         var newTextBoxDiv1 = $(document.createElement('div')).attr("id", 'TextBoxDiv1' + counter),
-            newTextBoxDiv2 = $(document.createElement('div')).attr("id", 'TextBoxDiv2' + counter);
+            newTextBoxDiv2 = $(document.createElement('div')).attr("id", 'TextBoxDiv2' + counter),
+            newTextBoxDiv3 = $(document.createElement('div')).attr("id", 'TextBoxDiv3' + counter),
+            newTextBoxDiv4 = $(document.createElement('div')).attr("id", 'TextBoxDiv4' + counter);
         newTextBoxDiv1.after().html('<input type="text" style="margin-top:10px;" autocomplete="off" class="form-control" placeholder="masukkan LM ..." name="lm'+counter+'" required>');
         newTextBoxDiv2.after().html('<input type="text" style="margin-top:10px;" autocomplete="off" class="form-control" placeholder="masukkan PIC ..." name="pic'+counter+'" required>');
+        newTextBoxDiv3.after().html('<select style="margin-top:10px;" class="form-control" name="pol'+counter+'"><option style="display:none;">--pilih salah satu --</option><option value="positif">Positif</option><option value="negatif">Negatif</option></select>');
+        newTextBoxDiv4.after().html('<select style="margin-top:10px;" class="form-control" name="tip'+counter+'"><option style="display:none;">--pilih salah satu --</option><option value="komulatif">Komulatif</option><option value="nonkomulatif">Non Komulatif</option></select>');
         newTextBoxDiv1.appendTo("#lm-div");
-        newTextBoxDiv2.appendTo("#pic-div");		
+        newTextBoxDiv2.appendTo("#pic-div");	
+        newTextBoxDiv3.appendTo("#pol-div");
+        newTextBoxDiv4.appendTo("#tipe-div");	
         counter++;
         $('#counter').val(counter);
     });
@@ -210,6 +234,8 @@ $(function(){
         $('#counter').val(counter);
         $("#TextBoxDiv1" + counter).remove();
         $("#TextBoxDiv2" + counter).remove();
+        $("#TextBoxDiv3" + counter).remove();
+        $("#TextBoxDiv4" + counter).remove();
     });
   });
 </script>
