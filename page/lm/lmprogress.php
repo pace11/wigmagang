@@ -136,11 +136,13 @@
                                                     ?>
                                                     <textarea style="display:none;" id="dataarrlm"><?= $dataarrLm ?></textarea>
                                                     <select name="lmdata" class="form-control" id="lmdata">
+                                                    <option style="display:none;">-- pilih salah satu --</option>
                                                     <?php
                                                         $no = 0;
                                                         $datalm = json_decode($getlm['lm_pic']);
                                                         foreach($datalm as $lmitems){
-                                                            echo "<option value='$no'>LM : ".$lmitems->lm." - PIC : ".$lmitems->pic."</option>";
+                                                            $isvalue = "tgl ".$lmitems->lm." ".$lmitems->pic;
+                                                            echo "<option value='".str_replace(' ','_', $isvalue)."'>LM : ".$lmitems->lm." - PIC : ".$lmitems->pic."</option>";
                                                             $no++;
                                                         }
                                                     ?>
@@ -150,41 +152,45 @@
                                         </div>
                                         <?php 
                                         $idtgl = 0;
-                                        foreach($datalm as $lmitems){?>
-                                        <div class="row tglitems" id="<?= $idtgl ?>">
+                                        foreach($datalm as $lmitems){
+                                        $isvalue = "tgl ".$lmitems->lm." ".$lmitems->pic;
+                                        $idvalue = str_replace(' ','_', $isvalue);?>
+                                        <div class="row tglitems" id="<?= $idvalue ?>">
                                             <div class="col-md-12">
                                                 <div class="row">
                                                     <div class="col-md-2">
                                                         <label>Tanggal</label>
                                                     </div>
-                                                    <div class="col-md-10">
+                                                    <div class="col-md-10" style="background:#f5f5f5;padding:15px;border-radius:5px;">
                                                         <?php
                                                             foreach($lmitems->data as $lmtglitems){ ?>
-                                                            <div class="row">
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="date" class="form-control" value="<?= date('m-d-Y', strtotime($lmtglitems->tanggal)) ?>">
+                                                            <div style="background:#dedede;padding:15px;border-radius:5px;margin-bottom:10px">
+                                                                <div class="row">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="datepicker form-control" value="<?= date('d-m-Y', strtotime($lmtglitems->tanggal)) ?>">
+                                                                        </div>
                                                                     </div>
                                                                 </div>
-                                                            </div>
-                                                            <div class="row">
-                                                                <?php foreach($lmtglitems->data as $itemcontent) { ?>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->week ?>">
+                                                                <div class="row">
+                                                                    <?php foreach($lmtglitems->data as $itemcontent) { ?>
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" value="<?= $itemcontent->week ?>">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->target ?>">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" value="<?= $itemcontent->target ?>">
+                                                                        </div>
                                                                     </div>
-                                                                </div>
-                                                                <div class="col-md-4">
-                                                                    <div class="form-group">
-                                                                        <input type="text" class="form-control" value="<?= $itemcontent->realisasi ?>">
+                                                                    <div class="col-md-4">
+                                                                        <div class="form-group">
+                                                                            <input type="text" class="form-control" value="<?= $itemcontent->realisasi ?>">
+                                                                        </div>
                                                                     </div>
+                                                                    <?php } ?>
                                                                 </div>
-                                                                <?php } ?>
                                                             </div>
                                                         <?php    
                                                             }
@@ -230,7 +236,7 @@
 </script>
 <script>
   $(function () {
-    $("#datepicker").datepicker({
+    $(".datepicker").datepicker({
       format: 'dd-mm-yyyy',
       autoclose: true, 
       todayHighlight: true
@@ -249,17 +255,15 @@
     $('.tglitems').each(function(){
         $('#'+this.id).hide();
     });
-    $('.tglcontent').hide();
     $('#lmdata').change(function(){
         nil = $(':selected').val();
-        var arrdatalm = JSON.parse($('#dataarrlm').val());
-        $.each(arrdatalm, function(i, val){
-            if (nil == i) {
-                $('#'+i).show();
-                $('.tglcontent').show();                
-
+        // var arrdatalm = JSON.parse($('#dataarrlm').val());
+        $('.tglitems').each(function(){
+            var nul = this.id;
+            if (nil == nul){
+                $('#'+nul).show();
             } else {
-                $('#'+i).hide();
+                $('#'+nul).hide();
             }
         });
     });
