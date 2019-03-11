@@ -35,6 +35,9 @@
   elseif ($page == "profile")             include("page/profile/profile.php");
   elseif ($page == "profileeditpro")      include("page/profile/profileeditpro.php");
 
+  // ------------- REPORT ----------------------
+  elseif ($page == "report")             include("page/report/report.php");
+
 else echo"Konten tidak ada";
 
 ?>

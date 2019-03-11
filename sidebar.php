@@ -46,6 +46,13 @@
                 </a>
             </li>
             <?php } ?>
+            <li class="nav-item">
+                <a href="?page=report" class="nav-link 
+                <?php if ($_GET['page'] == 'report'){ echo "active"; } ?>">
+                <i class="nav-icon far fa-file-alt"></i>
+                    <p>REPORT</p>
+                </a>
+            </li>
         </ul>
     </nav>
 </div>
