@@ -82,7 +82,7 @@
                                                 </div>
                                                 <div class="col-md-4">
                                                     <div class="form-group">
-                                                        <a href="#" class="btn btn-success btn-sm"><i class="fas fa-calendar-alt"></i> <?= date('d-m-Y', strtotime($data['tanggal'])) ?></a>
+                                                        <a href="#" class="btn btn-success btn-sm"><i class="fas fa-calendar-alt"></i> <?= date('d M Y', strtotime($data['tanggal'])) ?></a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -147,7 +147,7 @@
                                                         foreach($json as $item) {
                                                             echo "<tr>";
                                                             echo "<td>".$no."</td>";
-                                                            echo "<td><a href='#' class='btn btn-success btn-sm'><i class='fas fa-calendar-alt'></i> ".$item->tanggal."</a></td>";
+                                                            echo "<td><a href='#' class='btn btn-success btn-sm'><i class='fas fa-calendar-alt'></i> ".date('d M Y',strtotime($item->tanggal))."</a></td>";
                                                             echo "<td><a href='#' class='btn btn-info btn-sm'>".$item->target."</a></td>";
                                                             echo "<td><a href='#' class='btn btn-danger btn-sm'>".$item->realisasi."</a></td>";
                                                             echo "</tr>";

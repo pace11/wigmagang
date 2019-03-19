@@ -33,7 +33,7 @@
                     <div class="card card-default">
                         
                         <div class="card-header">
-                            <h4><i class="fas fa-file-alt"></i> FORM WIG PROGRESS</h4>
+                            <h4><i class="fas fa-file-alt"></i> FORM LM PROGRESS</h4>
                             <div class="card-tools">
                                 <button type="button" class="btn btn-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 <button type="button" class="btn btn-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
@@ -83,7 +83,7 @@
                                             </div>
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-calendar-alt"></i> <?= date('d-m-Y', strtotime($data['tanggal'])) ?></a>
+                                                    <a href="#" class="btn btn-success btn-sm"><i class="fas fa-calendar-alt"></i> <?= date('d M Y', strtotime($data['tanggal'])) ?></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -113,11 +113,12 @@
                                         </div>
                                         <hr>
                                         <?php if($hitlm) { ?>
-                                        <form action="?page=lmprogressenter&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
+                                        <form action="?page=lmprogress&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
                                         <div class="row">
                                             <div class="col-md-2">
                                                 <div class="form-group">
                                                     <label>Pilih LM</label>
+                                                    <input type="hidden" name="id_wig" value="<?= $data['id_wig'] ?>">
                                                 </div>
                                             </div>
                                             <div class="col-md-4">
@@ -134,7 +135,7 @@
                                                         }
                                                             $dataarrLm = json_encode($dataarrLm);
                                                     ?>
-                                                    <textarea style="display:none;" id="dataarrlm"><?= $dataarrLm ?></textarea>
+                                                    <textarea id="dataarrlm" style="display:none;" name="datarraylm"><?= $dataarrLm ?></textarea>
                                                     <select name="lmdata" class="form-control" id="lmdata">
                                                     <option style="display:none;">-- pilih salah satu --</option>
                                                     <?php
@@ -147,6 +148,7 @@
                                                         }
                                                     ?>
                                                     </select>
+                                                    <input type="hidden" id="selecthis" name="selecthis">
                                                 </div>
                                             </div>
                                         </div>
@@ -163,7 +165,7 @@
                                                     </div>
                                                     <div class="col-md-10" style="background:#f5f5f5;padding:20px;border-radius:5px;">
                                                         <div class="row" id="tgl-div-out<?= $idtgl.$idtgl ?>">
-                                                        <input type="hidden" id="countout<?= $idtgl.$idtgl ?>" value="<?= count($lmitems->data) ?>">
+                                                        <input type="hidden" id="countout<?= $idtgl.$idtgl ?>" name="countout<?= $idtgl.$idtgl ?>" value="<?= count($lmitems->data) ?>">
                                                         <?php
                                                             $nil = 0;
                                                             foreach($lmitems->data as $lmtglitems){ ?>
@@ -171,45 +173,45 @@
                                                                     <div class="row">
                                                                         <div class="col-md-4">
                                                                             <div class="form-group">
-                                                                                <input type="text" class="datepicker form-control" value="<?= date('d-m-Y', strtotime($lmtglitems->tanggal)) ?>">
+                                                                                <input type="text" name="datetgl<?= $idtgl.$idtgl.$nil ?>" class="datepicker form-control" value="<?= date('d-m-Y', strtotime($lmtglitems->tanggal)) ?>">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <div class="row">
+                                                                    <input type="hidden" id="countin<?= $idtgl.$idtgl.$nil ?>" name="countin<?= $idtgl.$idtgl.$nil ?>" value="<?= count($lmtglitems->data) ?>">
                                                                         <?php 
                                                                         $nul = 0;
                                                                         foreach($lmtglitems->data as $itemcontent) { ?>
-                                                                        <input type="hidden" id="countin<?= $idtgl.$idtgl.$nil ?>" value="<?= count($lmtglitems->data) ?>">
                                                                         <div class="col-md-4" id="weeks<?= $idtgl.$idtgl.$nil ?>">
                                                                             <div class="form-group" id="week-item<?= $idtgl.$idtgl.$nil.$nul ?>">
-                                                                                <input type="text" class="form-control" value="<?= $itemcontent->week ?>">
+                                                                                <input type="text" name="weekisi<?= $idtgl.$idtgl.$nil.$nul ?>" class="form-control" value="<?= $itemcontent->week ?>" placeholder="masukkan keterangan week ...">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4" id="targets<?= $idtgl.$idtgl.$nil ?>">
                                                                             <div class="form-group" id="target-item<?= $idtgl.$idtgl.$nil.$nul ?>">
-                                                                                <input type="text" class="form-control" value="<?= $itemcontent->target ?>">
+                                                                                <input type="text" name="targetisi<?= $idtgl.$idtgl.$nil.$nul ?>" class="form-control" value="<?= $itemcontent->target ?>" placeholder="masukkan nilai target ...">
                                                                             </div>
                                                                         </div>
                                                                         <div class="col-md-4" id="realisasis<?= $idtgl.$idtgl.$nil ?>">
                                                                             <div class="form-group" id="realisasi-item<?= $idtgl.$idtgl.$nil.$nul ?>">
-                                                                                <input type="text" class="form-control" value="<?= $itemcontent->realisasi ?>">
+                                                                                <input type="text" name="realisi<?= $idtgl.$idtgl.$nil.$nul ?>" class="form-control" value="<?= $itemcontent->realisasi ?>" placeholder="masukkan nilai realisasi ...">
                                                                             </div>
                                                                         </div>
-                                                                        <?php } ?>
+                                                                        <?php $nul++; } ?>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-6">
                                                                             <div class="form-group">
-                                                                                <input type='button' class="btn btn-info tmbItem" value='+' id="tambahItem<?= $idtgl.$idtgl.$nil ?>">
-                                                                                <input type='button' class="btn btn-danger kurItem" value='-' id="kurangItem<?= $idtgl.$idtgl.$nil ?>">
+                                                                                <input type="button" class="btn btn-info tmbItem" value='+' id="tambahItem<?= $idtgl.$idtgl.$nil ?>">
+                                                                                <input type="button" class="btn btn-danger kurItem" value='-' id="kurangItem<?= $idtgl.$idtgl.$nil ?>">
                                                                             </div>
                                                                         </div>
                                                                     </div>
                                                                     <?php $nil++; ?>
                                                                 </div>
-                                                        <?php    
-                                                            }
-                                                        ?>
+                                                            <?php    
+                                                                }
+                                                            ?>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-md-12">
@@ -233,6 +235,50 @@
                             <a href="?page=progress" class="btn btn-danger">Batal</a>
                         </div>
                         </form>
+                    </div>
+                    <div>
+                    <?php 
+                    
+                    if (isset($_POST['submit'])){
+                        $select = $_POST['selecthis'];
+                        $idwig = $_POST['id_wig'];
+                        $int = $_POST["countout".$select.$select.""];
+                        $arr = json_decode($_POST['datarraylm']);
+                        
+                        for($a=0;$a<$int;$a++){
+                            $isiout['tanggal'] = date("Y-m-d", strtotime($_POST["datetgl".$select.$select.$a.""]));
+                            $nil = $_POST["countin".$select.$select.$a.""];
+                            for($b=0;$b<$nil;$b++){
+                                $isiin['week'] = $_POST["weekisi".$select.$select.$a.$b.""];
+                                $isiin['target'] = (int) $_POST["targetisi".$select.$select.$a.$b.""];
+                                $isiin['realisasi'] = (int) $_POST["realisi".$select.$select.$a.$b.""];
+                                $lm_in[$b] = $isiin;
+                                $isiout['data'] = $lm_in;
+                            }
+                            $lm_pic[] = $isiout;
+                        }
+                        foreach($arr as $key => $value){
+                            $arr[$select]->data = $lm_pic; 
+                        }
+                            $hasil = json_encode($arr);
+
+                        $update = mysqli_query($conn, "UPDATE tbl_lm SET
+                                                    lm_pic = '$hasil'
+                                                    WHERE id_wig = '$idwig'");
+                        if($update){
+                            echo    '<div class="row">'.
+                                        '<div class="col-md-12">'.
+                                            '<div class="alert alert-success alert-dismissible">'.
+                                            '<h5><i class="icon fa fa-check"></i> Alert!</h5>'.
+                                            'Data berhasil disimpan.</div>'.
+                                        '</div>'.
+                                    '</div>';
+                            echo "<meta http-equiv='refresh' content='1;
+                            url=?page=lmprogress&id=$idwig'>";
+                        }
+                       
+                    }
+                    ?>
                     </div>
                 </div>
             </div>
@@ -276,9 +322,10 @@
     });
     $('#lmdata').change(function(){
         nil = $(':selected').val();
-        $('.tglitems').each(function(){
+        $('.tglitems').each(function(i, val){
             nul = this.id;
             if (nil == nul){
+                $("#selecthis").val(i);
                 $('#'+nul).show();
             } else {
                 $('#'+nul).hide();
@@ -297,39 +344,35 @@ $(function(){
         $("#buttonTambah"+i+i).click(function(){
             counter = $("#countout"+i+i).val();
             var nil = 1;
-            	
+            
+            if(counter > 11){
+                alert("Maksimal 12 Textbox untuk 12 Bulan");
+                return false;
+            }
             var newTextBoxDiv1 = $(document.createElement('div')).attr("id", 'tgldivout' +i+i+counter);
             var isi = '<div id="tgldivout'+i+i+counter+'" class="col-md-12" style="background:#dedede;padding:15px;border-radius:5px;margin-bottom:10px">'+
                             '<div class="row">'+
                                 '<div class="col-md-4">'+
                                     '<div class="form-group">'+
-                                        '<input type="date" class="form-control">'+
+                                        '<input type="date" name="datetgl'+i+i+counter+'" class="form-control">'+
                                     '</div>'+
                                 '</div>'+
                             '</div>'+
                             '<div class="row">'+
-                                '<input type="hidden" id="countin'+i+i+counter+'" value="'+nil+'">'+
+                                '<input type="hidden" name="countin'+i+i+counter+'" id="countin'+i+i+counter+'" value="'+nil+'">'+
                                 '<div class="col-md-4" id="weeks'+i+i+counter+'">'+
                                     '<div class="form-group" id="week-item'+i+i+counter+'0">'+
-                                        '<input type="text" class="form-control" name="week" placeholder="masukkan keterangan week ...">'+
+                                        '<input type="text" class="form-control" name="weekisi'+i+i+counter+'0" placeholder="masukkan keterangan week ...">'+
                                     '</div>'+
                                 '</div>'+
                                 '<div class="col-md-4" id="targets'+i+i+counter+'">'+
                                     '<div class="form-group" id="target-item'+i+i+counter+'0">'+
-                                        '<input type="text" class="form-control" name="target" placeholder="masukkan nilai target ...">'+
+                                        '<input type="text" class="form-control" name="targetisi'+i+i+counter+'0" placeholder="masukkan nilai target ...">'+
                                     '</div>'+
                                 '</div>'+
                                 '<div class="col-md-4" id="realisasis'+i+i+counter+'">'+
                                     '<div class="form-group" id="realisasi-item'+i+i+counter+'0">'+
-                                        '<input type="text" class="form-control" name="realisasi" placeholder="masukkan nilai realisasi ...">'+
-                                    '</div>'+
-                                '</div>'+
-                            '</div>'+
-                            '<div class="row">'+
-                                '<div class="col-md-6">'+
-                                    '<div class="form-group">'+
-                                        '<input type="button" class="btn btn-info tmbItem" value="+" id="tambahItem'+i+i+counter+'">'+
-                                        '<input type="button" class="btn btn-danger" value="-"id="kurangItem'+i+i+counter+'">'+
+                                        '<input type="text" class="form-control" name="realisi'+i+i+counter+'0" placeholder="masukkan nilai realisasi ...">'+
                                     '</div>'+
                                 '</div>'+
                             '</div>'+
@@ -341,19 +384,21 @@ $(function(){
         $.each($('.tmbItem'), function(j,values){
             $("#tambahItem"+i+i+j).click(function(){
                 counters = $("#countin"+i+i+j).val();
-            
+                if(counters > 4){
+                    alert("Maksimal 5 Textbox untuk 5 Week");
+                    return false;
+                }
                 var childBoxDiv1 = $(document.createElement('div')).attr("id", 'week-item' +i+i+j+counters),
                     childBoxDiv2 = $(document.createElement('div')).attr("id", 'target-item' +i+i+j+counters),
                     childBoxDiv3 = $(document.createElement('div')).attr("id", 'realisasi-item' +i+i+j+counters);
 
-                    childBoxDiv1.after().html('<div class="form-group" id="week-item'+i+i+j+counters+'"><input type="text" class="form-control" name="week'+counters+'" placeholder="masukkan keterangan week ..."></div>');
-                    childBoxDiv2.after().html('<div class="form-group" id="target-item'+i+i+j+counters+'"><input type="text" class="form-control" placeholder="masukkan nilai target ..." required></div>');
-                    childBoxDiv3.after().html('<div class="form-group" id="realisasi-item'+i+i+j+counters+'"><input type="text" class="form-control" placeholder="masukkan nilai realisasi ..." required></div>');
+                    childBoxDiv1.after().html('<div class="form-group" id="week-item'+i+i+j+counters+'"><input type="text" class="form-control" name="weekisi'+i+i+j+counters+'" placeholder="masukkan keterangan week ..."></div>');
+                    childBoxDiv2.after().html('<div class="form-group" id="target-item'+i+i+j+counters+'"><input type="text" class="form-control" name="targetisi'+i+i+j+counters+'" placeholder="masukkan nilai target ..."></div>');
+                    childBoxDiv3.after().html('<div class="form-group" id="realisasi-item'+i+i+j+counters+'"><input type="text" class="form-control" name="realisi'+i+i+j+counters+'" placeholder="masukkan nilai realisasi ..."></div>');
                 
                     childBoxDiv1.appendTo("#weeks"+i+i+j);
                     childBoxDiv2.appendTo("#targets"+i+i+j);
                     childBoxDiv3.appendTo("#realisasis"+i+i+j);
-                
                 counters++;
                 $("#countin"+i+i+j).val(counters);
             });
@@ -364,12 +409,26 @@ $(function(){
         $("#buttonHapus"+i+i).click(function () {
             counter = $("#countout"+i+i).val();
             if(counter==1){
-                alert("Minimal 1 Textbox");
+                alert("Minimal 1 Textbox untuk 1 Bulan");
                 return false;
             }
             counter--;
             $("#countout"+i+i).val(counter);
             $("#tgldivout"+i+i+counter).remove();
+        });
+        $.each($(".kurItem"), function(j, values){
+            $("#kurangItem"+i+i+j).click(function(){
+                counters = $("#countin"+i+i+j).val();
+                if(counters==1){
+                    alert("Minimal 1 Textbox untuk 1 Week");
+                    return false;
+                }
+                counters--;
+                $("#countin"+i+i+j).val(counters);
+                $("#week-item"+i+i+j+counters).remove();
+                $("#target-item"+i+i+j+counters).remove();
+                $("#realisasi-item"+i+i+j+counters).remove();
+            });
         });
     });
     

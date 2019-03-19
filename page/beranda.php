@@ -58,7 +58,7 @@
                                                     <td><a class="btn btn-success btn-sm" href="#"><i class="fas fa-user"></i> <?= $data['id_wig'] ?></a></td>
                                                     <td><?= $data['judul'] ?></td>
                                                     <td><a href="#" class="btn btn-info btn-sm"><?= $data['username'] ?></a></td>
-                                                    <td><?= $data['tanggal'] ?></td>
+                                                    <td><?= date('d M Y', strtotime($data['tanggal'])) ?></td>
                                                     <td><?= $data['target'] ?></td>
                                                     <td><?= $data['satuan'] ?></td>
                                                     <td>

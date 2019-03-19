@@ -59,7 +59,7 @@
                                                     <td><?= $no ?></td>
                                                     <td><a class="btn btn-success btn-sm" href="#"><i class="fas fa-user"></i> <?= $data['id_wig'] ?></a></td>
                                                     <td><?= $data['judul'] ?></td>
-                                                    <td><?= $data['tanggal'] ?></td>
+                                                    <td><?= date('d M Y', strtotime($data['tanggal'])) ?></td>
                                                     <?php if ($page == 'wig') { ?>
                                                     <td><?= $data['target'] ?></td>
                                                     <td><?= $data['satuan'] ?></td>

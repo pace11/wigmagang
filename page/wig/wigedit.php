@@ -128,7 +128,6 @@
                                                 <div class="col-md-3">
                                                     <div class="form-group" id="pic-div">
                                                     <textarea name="step-one" style="display:none;" class="form-control"><?= json_encode($json) ?></textarea>
-                                                    <textarea name="step-one" style="display:none;" class="form-control"><?= json_encode($json) ?></textarea>
                                                         <label>PIC</label>
                                                         <?php 
                                                             $b=0;
