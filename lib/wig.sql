@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.3
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 27, 2019 at 04:24 AM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.12
+-- Generation Time: Mar 19, 2019 at 01:20 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,7 +39,8 @@ CREATE TABLE `tbl_lm` (
 --
 
 INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm_pic`) VALUES
-(50, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Rekha\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-02-27\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]},{\"tanggal\":\"2019-02-28\",\"data\":[{\"week\":\"week2\",\"target\":0,\"realisasi\":0}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Riantri\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-02-29\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]},{\"tanggal\":\"2019-02-30\",\"data\":[{\"week\":\"week2\",\"target\":0,\"realisasi\":0}]},{\"tanggal\":\"2019-02-31\",\"data\":[{\"week\":\"week3\",\"target\":0,\"realisasi\":0}]}]}]');
+(52, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Ryan\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":76,\"realisasi\":66},{\"week\":\"week2\",\"target\":65,\"realisasi\":75}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Riantri\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":78,\"realisasi\":80}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80}]}]}]'),
+(53, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Rekha\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Nikku\",\"polaritas\":\"positif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]}]}]');
 
 -- --------------------------------------------------------
 
@@ -263,7 +264,8 @@ CREATE TABLE `tbl_wig` (
 --
 
 INSERT INTO `tbl_wig` (`id_wig`, `polaritas`, `tipe`, `username`, `judul`, `tanggal`, `target`, `satuan`) VALUES
-('WIG0001', 'positif', 'komulatif', 'SPVMAPPING', 'pemasangan api', '2019-02-27', 60, 'Bobot');
+('WIG0001', 'positif', 'nonkomulatif', 'SPVMAPPING', 'Pemasangan Gardu STT PLN Jakarta', '2019-03-19', 67, 'BTU'),
+('WIG0002', 'negatif', 'nonkomulatif', 'SPVMAPPING', 'Perbaikan Meteran Rumah', '2019-03-28', 56, 'Bobot');
 
 -- --------------------------------------------------------
 
@@ -283,7 +285,8 @@ CREATE TABLE `tbl_wigprogress` (
 --
 
 INSERT INTO `tbl_wigprogress` (`id_wigproses`, `id_wig`, `value_wigprogress`, `update_at`) VALUES
-(31, 'WIG0001', '[{\"tanggal\":\"2019-02-27\",\"target\":\"70\",\"realisasi\":\"100\"}]', '2019-02-26 22:34:22');
+(33, 'WIG0001', '[{\"tanggal\":\"2019-03-19\",\"target\":\"67\",\"realisasi\":\"89\"}]', '2019-03-18 17:04:47'),
+(34, 'WIG0002', '[{\"tanggal\":\"2019-03-28\",\"target\":0,\"realisasi\":0}]', '2019-03-18 22:54:58');
 
 --
 -- Indexes for dumped tables
@@ -330,13 +333,13 @@ ALTER TABLE `tbl_wigprogress`
 -- AUTO_INCREMENT for table `tbl_lm`
 --
 ALTER TABLE `tbl_lm`
-  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `tbl_wigprogress`
 --
 ALTER TABLE `tbl_wigprogress`
-  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- Constraints for dumped tables
