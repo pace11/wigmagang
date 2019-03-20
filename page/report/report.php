@@ -69,7 +69,7 @@
                                                     }
                                                 ?>
                                                 </select>
-                                                <textarea id=""><?= json_encode($value) ?></textarea>
+                                                <textarea id="arrIsi<?= $no ?>" name="arrIsi<?= $no ?>"><?= json_encode($value) ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -88,11 +88,14 @@
                                     <?php 
                                     
                                     if (isset($_POST['submit'])){
-                                        $idwig = $_POST['pilihwig'];
-                                        $role  = $_POST['role'];
-                                        $bulan = $_POST["pilihbulan".$role.""];
+                                        $idwig  = $_POST['pilihwig'];
+                                        $role   = $_POST['role'];
+                                        $bulan  = $_POST["pilihbulan".$role.""];
+                                        $arrisi = $_POST["arrIsi".$role.""]; 
 
-                                        echo "<button class='btn btn-info'>belum ada data</button>";
+                                        echo "<pre>";
+                                        print_r($arrisi);
+                                        echo "</pre>";
 
                                     }
                                     
