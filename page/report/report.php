@@ -70,6 +70,7 @@
                                                 ?>
                                                 </select>
                                                 <textarea id="arrIsi<?= $no ?>" name="arrIsi<?= $no ?>"><?= json_encode($value) ?></textarea>
+                                                <input type="text" name="" id="">
                                             </div>
                                         </div>
                                     </div>
