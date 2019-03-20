@@ -69,6 +69,7 @@
                                                     }
                                                 ?>
                                                 </select>
+                                                <textarea id=""><?= json_encode($value) ?></textarea>
                                             </div>
                                         </div>
                                     </div>
