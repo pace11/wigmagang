@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2019 at 01:20 AM
+-- Generation Time: Mar 21, 2019 at 02:11 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -39,8 +39,8 @@ CREATE TABLE `tbl_lm` (
 --
 
 INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm_pic`) VALUES
-(52, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Ryan\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":76,\"realisasi\":66},{\"week\":\"week2\",\"target\":65,\"realisasi\":75}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Riantri\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":78,\"realisasi\":80}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80}]}]}]'),
-(53, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Rekha\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Nikku\",\"polaritas\":\"positif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]}]}]');
+(52, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Ryan\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":76,\"realisasi\":66},{\"week\":\"week2\",\"target\":65,\"realisasi\":75}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Riantri\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":78,\"realisasi\":80}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80},{\"week\":\"week2\",\"target\":70,\"realisasi\":75}]}]}]'),
+(53, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Rekha\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":55,\"realisasi\":58}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Nikku\",\"polaritas\":\"positif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":78,\"realisasi\":88}]}]}]');
 
 -- --------------------------------------------------------
 
