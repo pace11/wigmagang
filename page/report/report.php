@@ -69,8 +69,8 @@
                                                     }
                                                 ?>
                                                 </select>
-                                                <textarea id="arrIsi<?= $no ?>" name="arrIsi<?= $no ?>"><?= json_encode($value) ?></textarea>
-                                                <input type="text" name="" id="">
+                                                <textarea style="display:none;" id="arrNil<?= $no ?>" name="arrNil<?= $no ?>"><?= json_encode($value) ?></textarea>
+                                                <textarea style="display:none;" name="arrwigNil<?= $no ?>"><?= json_encode($value) ?></textarea>
                                             </div>
                                         </div>
                                     </div>
@@ -81,6 +81,7 @@
                                     <label>Cek</label><br>
                                     <input type="submit" name="submit" class="btn btn-info" value="Proses">
                                     </div>
+                                    
                                 </div>
                             </div>
                             </form>
@@ -89,14 +90,55 @@
                                     <?php 
                                     
                                     if (isset($_POST['submit'])){
-                                        $idwig  = $_POST['pilihwig'];
-                                        $role   = $_POST['role'];
-                                        $bulan  = $_POST["pilihbulan".$role.""];
-                                        $arrisi = $_POST["arrIsi".$role.""]; 
-
-                                        echo "<pre>";
-                                        print_r($arrisi);
-                                        echo "</pre>";
+                                        $idwig = $_POST['pilihwig'];
+                                        $role  = $_POST['role'];
+                                        $bulan = $_POST["pilihbulan".$role.""];
+                                        $isiarray = json_decode($_POST["arrNil".$role.""]);
+                                        $isiwigarray = json_decode($_POST["arrwigNil".$role.""]);
+                                        
+                                        $tabel = '<table class="table table-bordered"><thead><tr><th>LM-PIC/WIG</th><th>PENCAPAIAN</th><th>EMOTICON</th></tr></thead>';
+                                        $tabel .= '<tbody>';
+                                        $i = 0;
+                                        $nilR = [];
+                                        $nilT = [];
+                                        foreach($isiarray as $isiarrayitems){
+                                            $nilR[$i] = 0;
+                                            $nilT[$i] = 0;
+                                            $hasil[$i] = 0;
+                                            $tabel .= '<tr>';
+                                            $tabel .= '<td><a class="btn btn-info" href="#">'.$isiarrayitems->lm.' - <b>'.$isiarrayitems->pic.'</b></a></td>';
+                                            foreach($isiarrayitems->data as $valueitems){
+                                                if($valueitems->tanggal == $bulan){
+                                                    foreach($valueitems->data as $isirtp){
+                                                        if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'komulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'komulatif'){
+                                                            $nilR[$i] += $isirtp->target;
+                                                            $nilT[$i] += $isirtp->realisasi;
+                                                        } else if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'nonkomulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'nonkomulatif'){
+                                                            $nilR[$i] = $isirtp->target;
+                                                            $nilT[$i] = $isirtp->realisasi;
+                                                        }
+                                                    }
+                                                }
+                                                if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'komulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'komulatif'){
+                                                    $hasil[$i] = @(($nilR[$i]/$nilT[$i])*100);    
+                                                } else if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'nonkomulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'nonkomulatif'){
+                                                    $hasil[$i] = @((2-($nilR[$i]/$nilT[$i]))*100);
+                                                }
+                                            }
+                                            $tabel .= '<td><a href="#" class="btn btn-success">'.round($hasil[$i],2).' %</a></td>';
+                                            if (round($hasil[$i],2) >= 100){
+                                                $tabel .= '<td><span class="far fa-smile-beam fa-2x"></span></td>';
+                                            } else if (round($hasil[$i],2) >= 70 && round($hasil[$i],2) < 100){
+                                                $tabel .= '<td><span class="far fa-frown fa-2x"></span></td>';
+                                            } else if (round($hasil[$i],2) < 70){
+                                                $tabel .= '<td><span class="far fa-sad-cry fa-2x"></span></td>';
+                                            }
+                                            
+                                            $tabel .= '</tr>';
+                                            $i++;
+                                        }
+                                        $tabel .= '</table>';
+                                        echo $tabel;
 
                                     }
                                     
