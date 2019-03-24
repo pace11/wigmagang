@@ -2,10 +2,10 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 21, 2019 at 02:11 PM
+-- Host: localhost
+-- Generation Time: Mar 24, 2019 at 10:41 AM
 -- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- PHP Version: 7.3.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -39,8 +39,9 @@ CREATE TABLE `tbl_lm` (
 --
 
 INSERT INTO `tbl_lm` (`id_lm`, `id_wig`, `lm_pic`) VALUES
-(52, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Ryan\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":76,\"realisasi\":66},{\"week\":\"week2\",\"target\":65,\"realisasi\":75}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Riantri\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":78,\"realisasi\":80}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80},{\"week\":\"week2\",\"target\":70,\"realisasi\":75}]}]}]'),
-(53, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Rekha\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":55,\"realisasi\":58}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Nikku\",\"polaritas\":\"positif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":78,\"realisasi\":88}]}]}]');
+(52, 'WIG0001', '[{\"lm\":\"Survey 1\",\"pic\":\"Ryan\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":67,\"realisasi\":80},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":55,\"realisasi\":76},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]},{\"tanggal\":\"2019-05-19\",\"data\":[{\"week\":\"week1\",\"target\":44,\"realisasi\":56},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]},{\"tanggal\":\"2019-06-19\",\"data\":[{\"week\":\"week1\",\"target\":54,\"realisasi\":60},{\"week\":\"week2\",\"target\":89,\"realisasi\":90}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Riantri\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-19\",\"data\":[{\"week\":\"week1\",\"target\":78,\"realisasi\":80},{\"week\":\"week2\",\"target\":76,\"realisasi\":78}]},{\"tanggal\":\"2019-04-19\",\"data\":[{\"week\":\"week1\",\"target\":64,\"realisasi\":67},{\"week\":\"week2\",\"target\":55,\"realisasi\":65}]},{\"tanggal\":\"2019-05-19\",\"data\":[{\"week\":\"week1\",\"target\":55,\"realisasi\":67},{\"week\":\"week2\",\"target\":71,\"realisasi\":75}]},{\"tanggal\":\"2019-06-19\",\"data\":[{\"week\":\"week1\",\"target\":65,\"realisasi\":77},{\"week\":\"week2\",\"target\":56,\"realisasi\":70}]}]}]'),
+(53, 'WIG0002', '[{\"lm\":\"Survey 1\",\"pic\":\"Rekha\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":55,\"realisasi\":58}]}]},{\"lm\":\"Survey 2\",\"pic\":\"Nikku\",\"polaritas\":\"positif\",\"tipe\":\"nonkomulatif\",\"data\":[{\"tanggal\":\"2019-03-28\",\"data\":[{\"week\":\"week1\",\"target\":77,\"realisasi\":80}]}]}]'),
+(54, 'WIG0003', '[{\"lm\":\"Survey 1\",\"pic\":\"Ainur\",\"polaritas\":\"positif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-22\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]}]},{\"lm\":\"Teknisi 1\",\"pic\":\"Naufal\",\"polaritas\":\"negatif\",\"tipe\":\"komulatif\",\"data\":[{\"tanggal\":\"2019-03-22\",\"data\":[{\"week\":\"week1\",\"target\":0,\"realisasi\":0}]}]}]');
 
 -- --------------------------------------------------------
 
@@ -265,7 +266,8 @@ CREATE TABLE `tbl_wig` (
 
 INSERT INTO `tbl_wig` (`id_wig`, `polaritas`, `tipe`, `username`, `judul`, `tanggal`, `target`, `satuan`) VALUES
 ('WIG0001', 'positif', 'nonkomulatif', 'SPVMAPPING', 'Pemasangan Gardu STT PLN Jakarta', '2019-03-19', 67, 'BTU'),
-('WIG0002', 'negatif', 'nonkomulatif', 'SPVMAPPING', 'Perbaikan Meteran Rumah', '2019-03-28', 56, 'Bobot');
+('WIG0002', 'negatif', 'nonkomulatif', 'SPVMAPPING', 'Perbaikan Meteran Rumah', '2019-03-28', 56, 'Bobot'),
+('WIG0003', 'positif', 'komulatif', 'SPVPEMASARAN', 'Penanaman Kabel Listrik area Abepura', '2019-03-22', 78, 'BBTU');
 
 -- --------------------------------------------------------
 
@@ -285,8 +287,9 @@ CREATE TABLE `tbl_wigprogress` (
 --
 
 INSERT INTO `tbl_wigprogress` (`id_wigproses`, `id_wig`, `value_wigprogress`, `update_at`) VALUES
-(33, 'WIG0001', '[{\"tanggal\":\"2019-03-19\",\"target\":\"67\",\"realisasi\":\"89\"}]', '2019-03-18 17:04:47'),
-(34, 'WIG0002', '[{\"tanggal\":\"2019-03-28\",\"target\":0,\"realisasi\":0}]', '2019-03-18 22:54:58');
+(33, 'WIG0001', '[{\"tanggal\":\"2019-03-19\",\"target\":\"67\",\"realisasi\":\"89\"},{\"tanggal\":\"2019-04-19\",\"target\":\"70\",\"realisasi\":\"78\"},{\"tanggal\":\"2019-05-19\",\"target\":\"56\",\"realisasi\":\"60\"},{\"tanggal\":\"2019-06-19\",\"target\":\"77\",\"realisasi\":\"91\"}]', '2019-03-21 15:39:02'),
+(34, 'WIG0002', '[{\"tanggal\":\"2019-03-28\",\"target\":\"55\",\"realisasi\":\"70\"},{\"tanggal\":\"2019-04-28\",\"target\":\"63\",\"realisasi\":\"77\"},{\"tanggal\":\"2019-05-28\",\"target\":\"54\",\"realisasi\":\"67\"}]', '2019-03-21 15:39:55'),
+(35, 'WIG0003', '[{\"tanggal\":\"2019-03-22\",\"target\":0,\"realisasi\":0}]', '2019-03-22 14:29:37');
 
 --
 -- Indexes for dumped tables
@@ -333,13 +336,13 @@ ALTER TABLE `tbl_wigprogress`
 -- AUTO_INCREMENT for table `tbl_lm`
 --
 ALTER TABLE `tbl_lm`
-  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id_lm` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT for table `tbl_wigprogress`
 --
 ALTER TABLE `tbl_wigprogress`
-  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_wigproses` int(10) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- Constraints for dumped tables
