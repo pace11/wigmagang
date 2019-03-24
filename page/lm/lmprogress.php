@@ -24,6 +24,10 @@
         $hitlm = mysqli_num_rows($lm);
         $getlm = mysqli_fetch_array($lm);
 
+        $getval = mysqli_query($conn, "SELECT value_wigprogress FROM tbl_wigprogress WHERE id_wig='$_GET[id]'") or die (mysqli_error($conn));
+        $hitval = mysqli_num_rows($getval);
+        $dataval = mysqli_fetch_array($getval);
+
 
     ?>
     <div class="content">
@@ -111,6 +115,36 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        <hr>
+                                        <?php if($hitval) { ?>
+                                        <div class="row">
+                                            <table class="table table-bordered">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width: 10px">#</th>
+                                                        <th>Tanggal</th>
+                                                        <th>Target</th>
+                                                        <th>Realisasi</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                <?php
+                                                    $json = json_decode($dataval['value_wigprogress']);
+                                                    $no=1;
+                                                    foreach($json as $item) {
+                                                        echo "<tr>";
+                                                        echo "<td>".$no."</td>";
+                                                        echo "<td><a href='#' class='btn btn-success btn-sm'><i class='fas fa-calendar-alt'></i> ".date('d M Y',strtotime($item->tanggal))."</a></td>";
+                                                        echo "<td><a href='#' class='btn btn-info btn-sm'>".$item->target."</a></td>";
+                                                        echo "<td><a href='#' class='btn btn-danger btn-sm'>".$item->realisasi."</a></td>";
+                                                        echo "</tr>";
+                                                        $no++;
+                                                    }
+                                                ?>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <?php } ?>
                                         <hr>
                                         <?php if($hitlm) { ?>
                                         <form action="?page=lmprogress&id=<?= $data['id_wig'] ?>" method="post" enctype="multipart/form-data">
@@ -287,7 +321,7 @@
 </div>
 <!-- Main Footer -->
 <footer class="main-footer">
-    <strong>Copyright &copy; 2018</strong> Sistem Informasi Week Important Goal | PLN Bulungan
+    <strong>Copyright &copy; 2019</strong> Sistem Informasi Wildly Important Goal | PLN Bulungan
   </footer>
 </div>
 <script src="plugins/jquery/jquery.min.js"></script>

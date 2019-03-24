@@ -1,3 +1,7 @@
+<?php 
+$count = mysqli_num_rows(mysqli_query($conn,"SELECT * FROM tbl_wig WHERE username='$user'"));
+?>
+
 <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
         <div class="image">
@@ -25,7 +29,11 @@
                 <?php if ($_GET['page'] == 'wig' || $_GET['page'] == 'wigtambah' || $_GET['page'] == 'wigtambahpro' || $_GET['page'] == 'wigedit'
                          || $_GET['page'] == 'wigeditpro' || $_GET['page'] == 'wighapus' || $_GET['page'] == 'wigview'){ echo "active"; } ?>">
                 <i class="nav-icon fas fa-list-ul"></i>
-                    <p>WIG</p>
+                    <p>WIG
+                        <?php if($count > 0){ ?> 
+                        <span class="right badge badge-danger"><?= $count ?></span>
+                        <?php } ?>
+                    </p>
                 </a>
             </li>
             <li class="nav-item">

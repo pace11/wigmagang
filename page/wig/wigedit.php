@@ -147,7 +147,7 @@
                                                             $c=0;
                                                             foreach($json as $item) { ?>
                                                                 <div id="TextBoxDiv3<?= $c ?>">
-                                                                    <input type="text" style="margin-top:10px;" class="form-control" value="<?= $item->polaritas ?>" readonly>
+                                                                    <input type="text" style="margin-top:10px;" class="form-control" name="pol<?= $c ?>" value="<?= $item->polaritas ?>" readonly>
                                                                 </div>
                                                         <?php
                                                                 $c++;    
@@ -162,7 +162,7 @@
                                                             $d=0;
                                                             foreach($json as $item) { ?>
                                                                 <div id="TextBoxDiv4<?= $d ?>">
-                                                                    <input type="text" style="margin-top:10px;" class="form-control" value="<?= $item->tipe ?>" readonly>  
+                                                                    <input type="text" style="margin-top:10px;" class="form-control" name="tip<?= $d ?>" value="<?= $item->tipe ?>" readonly>  
                                                                 </div>
                                                         <?php
                                                                 $d++;    
@@ -196,7 +196,7 @@
 </div>
 <!-- Main Footer -->
 <footer class="main-footer">
-    <strong>Copyright &copy; 2018</strong> Sistem Informasi Week Important Goal | PLN Bulungan
+    <strong>Copyright &copy; 2019</strong> Sistem Informasi Wildly Important Goal | PLN Bulungan
   </footer>
 </div>
 <script src="plugins/jquery/jquery.min.js"></script>

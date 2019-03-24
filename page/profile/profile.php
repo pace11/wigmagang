@@ -80,7 +80,7 @@
 </div>
 <!-- Main Footer -->
 <footer class="main-footer">
-        <strong>Copyright &copy; 2018</strong> Sistem Informasi Wildly Important Goal | PLN Bulungan
+        <strong>Copyright &copy; 2019</strong> Sistem Informasi Wildly Important Goal | PLN Bulungan
     </footer>
 </div>
 <script src="plugins/jquery/jquery.min.js"></script>

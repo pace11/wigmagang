@@ -19,6 +19,15 @@
             <?php if ($userdata['role'] == 1 || $userdata['role'] == 2) { ?>
             <div class="row">
                 <div class="col-md-12">
+                    <div class="alert alert-info alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h5><i class="icon fa fa-info"></i> Informasi!</h5>
+                        Supervisor bisa melakukan view, edit, dan hapus untuk WIG yang dimili oleh Supervisor tersebut. Jika bukan, Supervisor tersebut hanya bisa melakukan view. Manager juga hanya bisa melakukan view.
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
                     <div class="card card-default">
                         
                         <div class="card-header">
@@ -30,7 +39,6 @@
                         </div>
                         
                         <div class="card-body">
-                            
                             <div class="row">
                                 <div class="table-responsive">
                                     <table id="example1" class="table table-bordered table-striped">
@@ -120,7 +128,7 @@
 </div>
     <!-- Main Footer -->
     <footer class="main-footer">
-        <strong>Copyright &copy; 2018</strong> Sistem Informasi Wildly Important Goal | PLN Bulungan
+        <strong>Copyright &copy; 2019</strong> Sistem Informasi Wildly Important Goal | PLN Bulungan
     </footer>
 </div>
 <script src="plugins/jquery/jquery.min.js"></script>
