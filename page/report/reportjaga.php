@@ -39,13 +39,13 @@
                                             <div class="row">
                                                 <div class="col-md-12">
                                                     <div class="form-group">
-                                                        <label>Pilih WIG</label>
-                                                        <select name="pilihwig" id="selectwig" class="form-control">
+                                                        <label>Pilih Supervisor</label>
+                                                        <select name="pilihspv" id="selectspv" class="form-control">
                                                             <option style="display:none;">-- pilih salah satu --</option>
                                                             <?php 
-                                                            $q = mysqli_query($conn, "SELECT * FROM tbl_wig WHERE username='$userdata[username]'");
+                                                            $q = mysqli_query($conn, "SELECT * FROM tbl_wig GROUP BY username");
                                                             while($data = mysqli_fetch_array($q)){
-                                                                echo "<option value='".$data['id_wig']."'>".$data['id_wig']."</option>";
+                                                                echo "<option value='".$data['username']."'>".$data['username']."</option>";
                                                             }
                                                             ?>
                                                         </select>
@@ -55,36 +55,51 @@
                                             </div>
                                         </div>
                                         <?php
-                                        $no = 0; 
-                                        $q = mysqli_query($conn, "SELECT * FROM tbl_wig WHERE username='$userdata[username]'");
+                                        $q = mysqli_query($conn, "SELECT * FROM tbl_wig GROUP BY username");
                                             while($data = mysqli_fetch_array($q)){
                                         ?>
-                                        <div class="col-md-4 bulan" id="<?= $data['id_wig'] ?>">
-                                            <div class="row">
-                                                <div class="col-md-12">
-                                                    <div class="form-group">
-                                                    <label>Pilih Bulan</label>
-                                                        <select name="pilihbulan<?= $no ?>" class="form-control">
-                                                            <option style="display:none;">-- pilih salah satu --</option>
-                                                        <?php
-                                                            $datalma = mysqli_query($conn, "SELECT * FROM tbl_wigprogress WHERE id_wig='$data[id_wig]'");
-                                                            $lma = mysqli_fetch_array($datalma);
-                                                            $valuea = json_decode($lma['value_wigprogress']);
-                                                            foreach($valuea as $values){
-                                                                echo "<option value='".$values->tanggal."'>".date('F', strtotime($values->tanggal))."</option>" ;
-                                                            }
-                                                            $datalm = mysqli_query($conn, "SELECT * FROM tbl_lm WHERE id_wig='$data[id_wig]'");
-                                                            $lm = mysqli_fetch_array($datalm);
-                                                            $value = json_decode($lm['lm_pic']);
-                                                        ?>
-                                                        </select>
-                                                        <textarea style="display:none;" id="arrNil<?= $no ?>" name="arrNil<?= $no ?>"><?= json_encode($value) ?></textarea>
-                                                        <textarea style="display:none;" name="arrwigNil<?= $no ?>"><?= json_encode($value) ?></textarea>
-                                                    </div>
-                                                </div>
+                                        <div class="col-md-4 wig" id="<?= $data['username'] ?>">
+                                            <div class="form-group">
+                                            <label>Pilih WIG</label>
+                                                <select name="pilihwig<?= $data['username'] ?>" id="selectwig<?= $data['username'] ?>" class="form-control optwig">
+                                                    <option>-- pilih salah satu --</option>
+                                                <?php
+                                                    $datawig = mysqli_query($conn, "SELECT * FROM tbl_wig WHERE username='$data[username]'");
+                                                    while($listdatawig = mysqli_fetch_array($datawig)){
+                                                        echo "<option value=$listdatawig[id_wig]>$listdatawig[id_wig]</option>";
+                                                    }
+                                                ?>
+                                                </select>
                                             </div>
                                         </div>
-                                        <?php $no++; } ?>
+                                        <?php } ?>
+                                        <?php 
+                                        $q2 = mysqli_query($conn, "SELECT * FROM tbl_wig");
+                                        while($data2 = mysqli_fetch_array($q2)){
+                                        ?>
+                                        <div class="col-md-4 bulan" id="<?= $data2['id_wig'] ?>">
+                                            <div class="form-group">
+                                                <label>Pilih Bulan</label>
+                                                <select name="pilihbulan<?= $data2['id_wig'] ?>" class="form-control">
+                                                    <option style="display:none;">-- pilih salah satu --</option>
+                                                <?php 
+                                                
+                                                $databulan = mysqli_query($conn, "SELECT * FROM tbl_wigprogress WHERE id_wig='$data2[id_wig]'");
+                                                $arrdatabulan = mysqli_fetch_array($databulan);
+                                                $valuedatabulan = json_decode($arrdatabulan['value_wigprogress']);
+                                                    foreach($valuedatabulan as $listdatabulan){
+                                                        echo "<option value=$listdatabulan->tanggal>".date('F', strtotime($listdatabulan->tanggal))."</option>";
+                                                    }
+
+                                                    $arrbulan = mysqli_query($conn, "SELECT * FROM tbl_lm WHERE id_wig='$data2[id_wig]'");
+                                                    $isiarrbulan = mysqli_fetch_array($arrbulan);
+                                                    $jsonarrbulan = json_decode($isiarrbulan['lm_pic']);
+                                                ?>
+                                                </select>
+                                                <textarea style="display:none;" name="nilaijson<?= $data2['id_wig'] ?>"><?= json_encode($jsonarrbulan) ?></textarea>
+                                            </div>
+                                        </div>
+                                        <?php } ?>
                                     </div>
                                 </div> 
                                 <div class="col-md-2" id="btnproses">
@@ -111,13 +126,16 @@
                                     <?php 
                                     
                                     if (isset($_POST['submit'])){
-                                        $idwig = $_POST['pilihwig'];
-                                        $role  = $_POST['role'];
-                                        $bulan = $_POST["pilihbulan".$role.""];
-                                        $isiarray = json_decode($_POST["arrNil".$role.""]);
-                                        $isiwigarray = json_decode($_POST["arrwigNil".$role.""]);
+                                        $idspv = $_POST['pilihspv'];
+                                        $idwig = $_POST["pilihwig".$idspv.""];
+                                        $bulan = $_POST["pilihbulan".$idwig.""];
+                                        $isiarray = json_decode($_POST["nilaijson".$idwig.""]);
                                         
-                                        $tabel = '<table class="table table-bordered"><thead><tr><th>LM-PIC/WIG</th><th>PENCAPAIAN</th><th>EMOTICON</th></tr></thead>';
+                                        $tabel = '<div class="alert alert-info alert-dismissible">';
+                                        $tabel .= '<h5><i class="icon fa fa-file-alt"></i> Report</h5>';
+                                        $tabel .= 'supervisor : <span class="fas fa-user"></span> <b>'.$idspv.'</b> , tgl/bulan : <span class="fas fa-calendar-alt"></span> <b>'.date('d-M-Y', strtotime($bulan)).'</b></div>';
+                                        
+                                        $tabel .= '<table class="table table-bordered"><thead><tr><th>LM-PIC/WIG</th><th>PENCAPAIAN</th><th>EMOTICON</th></tr></thead>';
                                         $tabel .= '<tbody>';
                                         $i = 0;
                                         $nilR = [];
@@ -129,6 +147,7 @@
                                             $tabel .= '<tr>';
                                             $tabel .= '<td><a class="btn btn-info" href="#">'.$isiarrayitems->lm.' - <b>'.$isiarrayitems->pic.'</b></a></td>';
                                             foreach($isiarrayitems->data as $valueitems){
+                                                
                                                 if($valueitems->tanggal == $bulan){
                                                     foreach($valueitems->data as $isirtp){
                                                         if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'komulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'komulatif'){
@@ -139,22 +158,28 @@
                                                             $nilT[$i] = $isirtp->realisasi;
                                                         }
                                                     }
-                                                }
+                                                }                                                
                                                 if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'komulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'komulatif'){
                                                     $hasil[$i] = @(($nilR[$i]/$nilT[$i])*100);    
                                                 } else if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'nonkomulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'nonkomulatif'){
                                                     $hasil[$i] = @((2-($nilR[$i]/$nilT[$i]))*100);
+                                                }   
+                                            }
+
+                                            $tabel .= '<td><a href="#" class="btn btn-success">';
+                                            $tabel .= ''.(is_nan($hasil[$i])) ? '0' : round($hasil[$i],2).'%';
+                                            $tabel .= '</a></td>';
+                                            if (is_nan($hasil[$i])){
+                                                $tabel .= '<td>-- data belum ada --</td>';
+                                            } else {
+                                                if (round($hasil[$i],2) >= 100){
+                                                    $tabel .= '<td><span class="far fa-smile-beam fa-2x"></span></td>';
+                                                } else if (round($hasil[$i],2) >= 70 && round($hasil[$i],2) < 100){
+                                                    $tabel .= '<td><span class="far fa-frown fa-2x"></span></td>';
+                                                } else if (round($hasil[$i],2) < 70){
+                                                    $tabel .= '<td><span class="far fa-sad-cry fa-2x"></span></td>';
                                                 }
                                             }
-                                            $tabel .= '<td><a href="#" class="btn btn-success">'.round($hasil[$i],2).' %</a></td>';
-                                            if (round($hasil[$i],2) >= 100){
-                                                $tabel .= '<td><span class="far fa-smile-beam fa-2x"></span></td>';
-                                            } else if (round($hasil[$i],2) >= 70 && round($hasil[$i],2) < 100){
-                                                $tabel .= '<td><span class="far fa-frown fa-2x"></span></td>';
-                                            } else if (round($hasil[$i],2) < 70){
-                                                $tabel .= '<td><span class="far fa-sad-cry fa-2x"></span></td>';
-                                            }
-                                            
                                             $tabel .= '</tr>';
                                             $i++;
                                         }
@@ -177,13 +202,21 @@
                                                 } else if ($getdata['polaritas'] == 'positif' && $getdata['tipe'] == 'nonkomulatif' || $getdata['polaritas'] == 'negatif' && $getdata['tipe'] == 'nonkomulatif'){
                                                     $hasilwig = @((2-($nilRwig/$nilTwig))*100);
                                                 }
-                                                $tabel .= '<td><a href="#" class="btn btn-success">'.round($hasilwig,2).' %</a></td>';
-                                                if (round($hasilwig,2) >= 100){
-                                                    $tabel .= '<td><span class="far fa-smile-beam fa-2x"></span></td>';
-                                                } else if (round($hasilwig,2) >= 70 && round($hasilwig,2) < 100){
-                                                    $tabel .= '<td><span class="far fa-frown fa-2x"></span></td>';
-                                                } else if (round($hasilwig,2) < 70){
-                                                    $tabel .= '<td><span class="far fa-sad-cry fa-2x"></span></td>';
+                                                $tabel .= '<td><a href="#" class="btn btn-success">';
+                                                $tabel .= ''.(is_nan($hasilwig)) ? '0' : round($hasilwig,2).'%';
+                                                $tabel .= '</a></td>';for($a=0;$a<count($isiarray);$a++){
+                                            
+                                                }
+                                                if(is_nan($hasilwig)){
+                                                    $tabel .= '<td>-- data belum ada --</td>';
+                                                } else {
+                                                    if (round($hasilwig,2) >= 100){
+                                                        $tabel .= '<td><span class="far fa-smile-beam fa-2x"></span></td>';
+                                                    } else if (round($hasilwig,2) >= 70 && round($hasilwig,2) < 100){
+                                                        $tabel .= '<td><span class="far fa-frown fa-2x"></span></td>';
+                                                    } else if (round($hasilwig,2) < 70){
+                                                        $tabel .= '<td><span class="far fa-sad-cry fa-2x"></span></td>';
+                                                    }
                                                 }
                                                 $tabel .= '</tr>';
                                             }
@@ -191,9 +224,35 @@
 
                                         $tabel .= '</table>';
                                         echo $tabel;
+                                        
+                                        $j = 0;
+                                        foreach($isiarray as $listisiarray){
+                                            foreach($listisiarray->data as $listisibulan){
+                                                if ($listisibulan->tanggal == $bulan){
+                                                    $k = 0;
+                                                    foreach($listisibulan->data as $listisian){
+                                                        $isian[$j] = [
+                                                                "target" => $listisian->target,
+                                                                "realisasi" => $listisian->realisasi,
+                                                            ];
+                                                            $isi[$j] = [
+                                                                "data" => [
+                                                                    $isian[$j],
+                                                                ],
+                                                            ];
+                                                    $k++;
+                                                    }
+                                                    
+                                                }                                    
+                                            }
+                                        $j++;
+                                        }
+                                        $jsonaja = json_encode($isi);
+
+                                        echo $jsonaja;
 
                                     }
-                                    
+
                                     ?>
                                 </div>
                             </div>
@@ -232,26 +291,49 @@
     });
   });
 </script>
+
 <script>
 $(document).ready(function(){
 
-    $("#btnproses").hide();
-    $('.bulan').each(function(){
-        $('#'+this.id).hide();
+    $('.wig').each(function(){
+       $('#'+this.id).hide();
     });
+    $('.bulan').each(function(){
+       $('#'+this.id).hide();
+    });
+    $("#btnproses").hide();
 
-    $('#selectwig').change(function(){
+    var nil = "",
+        nul = "",
+        nal = "",
+        nel = "";
+
+    $('#selectspv').change(function(){
         nil = $(':selected').val();
-        $('.bulan').each(function(i, val){
+        $('.wig').each(function(i, val){
             nul = this.id;
             if (nil == nul){
-                $("#role").val(i);
-                $("#btnproses").show();
                 $('#'+nul).show();
             } else {
                 $('#'+nul).hide();
             }
         });
     });
+
+    $('.optwig').each(function(){
+        $('#'+this.id).change(function(){
+            nal = $('#'+this.id).find(':selected').val();
+            $('.bulan').each(function(){
+                nel = this.id;
+                if (nal == nel){
+                    $("#btnproses").show();
+                    $('#'+nel).show();
+                } else {
+                    $('#'+nel).hide();
+                }
+            });
+        });
+    });
 });
+
 </script>

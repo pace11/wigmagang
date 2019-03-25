@@ -147,6 +147,7 @@
                                             $tabel .= '<tr>';
                                             $tabel .= '<td><a class="btn btn-info" href="#">'.$isiarrayitems->lm.' - <b>'.$isiarrayitems->pic.'</b></a></td>';
                                             foreach($isiarrayitems->data as $valueitems){
+                                                
                                                 if($valueitems->tanggal == $bulan){
                                                     foreach($valueitems->data as $isirtp){
                                                         if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'komulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'komulatif'){
@@ -157,13 +158,14 @@
                                                             $nilT[$i] = $isirtp->realisasi;
                                                         }
                                                     }
-                                                }
+                                                }                                                
                                                 if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'komulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'komulatif'){
                                                     $hasil[$i] = @(($nilR[$i]/$nilT[$i])*100);    
                                                 } else if ($isiarrayitems->polaritas == 'positif' && $isiarrayitems->tipe == 'nonkomulatif' || $isiarrayitems->polaritas == 'negatif' && $isiarrayitems->tipe == 'nonkomulatif'){
                                                     $hasil[$i] = @((2-($nilR[$i]/$nilT[$i]))*100);
-                                                }
+                                                }   
                                             }
+
                                             $tabel .= '<td><a href="#" class="btn btn-success">';
                                             $tabel .= ''.(is_nan($hasil[$i])) ? '0' : round($hasil[$i],2).'%';
                                             $tabel .= '</a></td>';
@@ -202,7 +204,9 @@
                                                 }
                                                 $tabel .= '<td><a href="#" class="btn btn-success">';
                                                 $tabel .= ''.(is_nan($hasilwig)) ? '0' : round($hasilwig,2).'%';
-                                                $tabel .= '</a></td>';
+                                                $tabel .= '</a></td>';for($a=0;$a<count($isiarray);$a++){
+                                            
+                                                }
                                                 if(is_nan($hasilwig)){
                                                     $tabel .= '<td>-- data belum ada --</td>';
                                                 } else {
@@ -220,6 +224,26 @@
 
                                         $tabel .= '</table>';
                                         echo $tabel;
+                                        
+                                        // $j = 0;
+                                        // foreach($isiarray as $listisiarray){
+                                        //     foreach($listisiarray->data as $listisibulan){
+                                        //         if ($listisibulan->tanggal == $bulan){
+                                        //             $a = 0;
+                                        //             foreach($listisibulan->data as $listisian){
+                                        //                 $isian[$j] = [
+                                        //                         "target" => $listisian->target,
+                                        //                         "realisasi" => $listisian->realisasi,
+                                        //                 ];
+                                        //             $a++;
+                                        //             }
+                                        //         }                                    
+                                        //     }
+                                        // $j++;
+                                        // }
+                                        // $jsonaja = json_encode($isi);
+
+                                        // echo $jsonaja;
 
                                     }
 
@@ -304,11 +328,6 @@ $(document).ready(function(){
             });
         });
     });
-
-   
-
-    
-
 });
 
 </script>
