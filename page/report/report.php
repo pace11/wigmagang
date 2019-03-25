@@ -30,7 +30,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <?php if($count) { ?>
                             <form action="?page=report" method="post">
                             <div class="row">
                                 <div class="col-md-10">
@@ -110,17 +109,6 @@
                                 </div>
                             </div>
                             </form>
-                            <?php } else { ?>
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="alert alert-danger alert-dismissible">
-                                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-                                        <h5><i class="icon fa fa-info"></i> Informasi!</h5>
-                                        Anda belum memiliki/membuat WIG. Segera buat WIG pada menu WIG.
-                                    </div>
-                                </div>
-                            </div>
-                            <?php } ?>
                             <div class="row">
                                 <div class="col-md-12">
                                     <?php 
