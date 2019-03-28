@@ -90,7 +90,7 @@
                                                 <div class="col-md-4">
                                                     <div class="form-group">
                                                         <label>Target WIG</label>
-                                                        <input type="number" name="target" min="1" placeholder="masukkan target ..." class="form-control" value="<?= $data['target'] ?>" required>
+                                                        <input type="text" name="target" placeholder="masukkan target ..." class="form-control" value="<?= $data['target'] ?>" required>
                                                         <input type="hidden" name="counter" class="form-control" id="counter" value="<?= count(json_decode($datalm['lm_pic'])) ?>">
                                                         <input type="hidden" name="counter-one" class="form-control" value="<?= count(json_decode($datalm['lm_pic'])) ?>">
                                                     </div>

@@ -225,10 +225,10 @@
                                                             "nil" => $listisian->week,
                                                         ];
                                                         $arrT[] = [
-                                                            "nil" => (int) $listisian->target,
+                                                            "nil" => (double) $listisian->target,
                                                         ];
                                                         $arrR[] = [
-                                                            "nil" => (int) $listisian->realisasi,
+                                                            "nil" => (double) $listisian->realisasi,
                                                         ];
                                                     }
                                                     $save['lm'] = $listisiarray->lm;
@@ -251,8 +251,8 @@
 
                                         foreach(json_decode($sqlArr['value_wigprogress']) as $isisqlArr){
                                             $put['tanggal'] = $isisqlArr->tanggal;
-                                            $put['target'] = (int) $isisqlArr->target;
-                                            $put['realisasi'] = (int) $isisqlArr->realisasi;
+                                            $put['target'] = (double) $isisqlArr->target;
+                                            $put['realisasi'] = (double) $isisqlArr->realisasi;
                                             $putisi[] = $put;
                                         }
                                             $puta['wig'] = $idwig;
@@ -283,7 +283,7 @@
                                     $m = 0;
                                     foreach(json_decode($jsonaja) as $jsonq) { ?>
                                         <div class="col-md-4">
-                                        <a href="#" class="btn btn-success"> Grafik : <?= $jsonq->lm.'-<b>'.$jsonq->pic.'</b>' ?></a>
+                                        <div class="alert alert-success alert-dismissible"> Grafik : <?= $jsonq->lm.'-<b>'.$jsonq->pic.'</b>' ?></div>
                                             <div class="chart">
                                                 <canvas id="lineChart<?= $m ?>" style="height:230px"></canvas>
                                             </div>
@@ -291,7 +291,7 @@
                                     <?php $m++; }
                                     foreach(json_decode($jsonput) as $jsonl) { ?>
                                         <div class="col-md-4">
-                                        <a href="#" class="btn btn-success"> Grafik : <?= $jsonl->wig ?></a>
+                                        <div class="alert alert-success alert-dismissible"> Grafik : <?= $jsonl->wig ?></div>
                                             <div class="chart">
                                                 <canvas id="lineChartwig" style="height:230px"></canvas>
                                             </div>

@@ -248,8 +248,8 @@
 
                             for ($a=0;$a<$counter;$a++) {
                                 $isi['tanggal']     = date('Y-m-d',strtotime($_POST["tgl".$a.""]));
-                                $isi['target']   = $_POST["target".$a.""];
-                                $isi['realisasi']   = $_POST["real".$a.""];
+                                $isi['target']   = (double) $_POST["target".$a.""];
+                                $isi['realisasi']   = (double) $_POST["real".$a.""];
                                 $value_wig[] = $isi;
                             }
                             $valueWig = json_encode($value_wig);

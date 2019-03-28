@@ -213,25 +213,28 @@
                                                                     </div>
                                                                     <div class="row">
                                                                     <input type="hidden" id="countin<?= $idtgl.$idtgl.$nil ?>" name="countin<?= $idtgl.$idtgl.$nil ?>" value="<?= count($lmtglitems->data) ?>">
-                                                                        <?php 
-                                                                        $nul = 0;
-                                                                        foreach($lmtglitems->data as $itemcontent) { ?>
+                
                                                                         <div class="col-md-4" id="weeks<?= $idtgl.$idtgl.$nil ?>">
+                                                                        <?php $nul = 0;foreach($lmtglitems->data as $itemcontent) { ?>
                                                                             <div class="form-group" id="week-item<?= $idtgl.$idtgl.$nil.$nul ?>">
                                                                                 <input type="text" name="weekisi<?= $idtgl.$idtgl.$nil.$nul ?>" class="form-control" value="<?= $itemcontent->week ?>" placeholder="masukkan keterangan week ...">
                                                                             </div>
+                                                                        <?php $nul++; } ?>
                                                                         </div>
                                                                         <div class="col-md-4" id="targets<?= $idtgl.$idtgl.$nil ?>">
-                                                                            <div class="form-group" id="target-item<?= $idtgl.$idtgl.$nil.$nul ?>">
-                                                                                <input type="text" name="targetisi<?= $idtgl.$idtgl.$nil.$nul ?>" class="form-control" value="<?= $itemcontent->target ?>" placeholder="masukkan nilai target ...">
+                                                                        <?php $nultwo = 0;foreach($lmtglitems->data as $itemcontent) { ?>
+                                                                            <div class="form-group" id="target-item<?= $idtgl.$idtgl.$nil.$nultwo ?>">
+                                                                                <input type="text" name="targetisi<?= $idtgl.$idtgl.$nil.$nultwo ?>" class="form-control" value="<?= $itemcontent->target ?>" placeholder="masukkan nilai target ...">
                                                                             </div>
+                                                                        <?php $nultwo++;} ?>
                                                                         </div>
                                                                         <div class="col-md-4" id="realisasis<?= $idtgl.$idtgl.$nil ?>">
-                                                                            <div class="form-group" id="realisasi-item<?= $idtgl.$idtgl.$nil.$nul ?>">
-                                                                                <input type="text" name="realisi<?= $idtgl.$idtgl.$nil.$nul ?>" class="form-control" value="<?= $itemcontent->realisasi ?>" placeholder="masukkan nilai realisasi ...">
+                                                                        <?php $nulthr = 0;foreach($lmtglitems->data as $itemcontent) { ?>
+                                                                            <div class="form-group" id="realisasi-item<?= $idtgl.$idtgl.$nil.$nulthr ?>">
+                                                                                <input type="text" name="realisi<?= $idtgl.$idtgl.$nil.$nulthr ?>" class="form-control" value="<?= $itemcontent->realisasi ?>" placeholder="masukkan nilai realisasi ...">
                                                                             </div>
+                                                                        <?php $nulthr++; } ?>
                                                                         </div>
-                                                                        <?php $nul++; } ?>
                                                                     </div>
                                                                     <div class="row">
                                                                         <div class="col-md-6">
@@ -284,8 +287,8 @@
                             $nil = $_POST["countin".$select.$select.$a.""];
                             for($b=0;$b<$nil;$b++){
                                 $isiin['week'] = $_POST["weekisi".$select.$select.$a.$b.""];
-                                $isiin['target'] = (int) $_POST["targetisi".$select.$select.$a.$b.""];
-                                $isiin['realisasi'] = (int) $_POST["realisi".$select.$select.$a.$b.""];
+                                $isiin['target'] = (double) $_POST["targetisi".$select.$select.$a.$b.""];
+                                $isiin['realisasi'] = (double) $_POST["realisi".$select.$select.$a.$b.""];
                                 $lm_in[$b] = $isiin;
                                 $isiout['data'] = $lm_in;
                             }
@@ -353,6 +356,7 @@
         nul = '';
     $('.tglitems').each(function(){
         $('#'+this.id).hide();
+        console.log(this.id);
     });
     $('#lmdata').change(function(){
         nil = $(':selected').val();
