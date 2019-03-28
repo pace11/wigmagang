@@ -4,6 +4,8 @@
     {
       include "lib/koneksi.php";
       date_default_timezone_set('Asia/Jakarta');
+      // Report all errors except E_NOTICE   
+      error_reporting(E_ALL ^ E_NOTICE);  
 ?>
 <!DOCTYPE html>
 <html lang="en">

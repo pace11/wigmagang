@@ -213,31 +213,94 @@
                                         $tabel .= '</table>';
                                         echo $tabel;
                                         
-                                        // $j = 0;
-                                        // foreach($isiarray as $listisiarray){
-                                        //     foreach($listisiarray->data as $listisibulan){
-                                        //         if ($listisibulan->tanggal == $bulan){
-                                        //             $a = 0;
-                                        //             foreach($listisibulan->data as $listisian){
-                                        //                 $isian[$j] = [
-                                        //                         "target" => $listisian->target,
-                                        //                         "realisasi" => $listisian->realisasi,
-                                        //                 ];
-                                        //             $a++;
-                                        //             }
-                                        //         }                                    
-                                        //     }
-                                        // $j++;
-                                        // }
-                                        // $jsonaja = json_encode($isi);
-
+                                        $j = 0;
+                                        $arrT = [];
+                                        $arrR = [];
+                                        $arrW = [];
+                                        foreach($isiarray as $listisiarray){
+                                            foreach($listisiarray->data as $listisibulan){
+                                                if ($listisibulan->tanggal == $bulan){
+                                                    foreach($listisibulan->data as $listisian){
+                                                        $arrW[] = [
+                                                            "nil" => $listisian->week,
+                                                        ];
+                                                        $arrT[] = [
+                                                            "nil" => (int) $listisian->target,
+                                                        ];
+                                                        $arrR[] = [
+                                                            "nil" => (int) $listisian->realisasi,
+                                                        ];
+                                                    }
+                                                    $save['lm'] = $listisiarray->lm;
+                                                    $save['pic'] = $listisiarray->pic;
+                                                    $save['data'] = [
+                                                            ["week" => $arrW,],
+                                                            ["target" => $arrT,],
+                                                            ["realisasi" => $arrR,],
+                                                    ];
+                                                    unset($arrT);
+                                                    unset($arrW);
+                                                    unset($arrR);
+                                                }              
+                                            }
+                                            $isiku[] = $save;
+                                        $j++;
+                                        }
+                                        $jsonaja = json_encode($isiku);
                                         // echo $jsonaja;
 
-                                    }
+                                        foreach(json_decode($sqlArr['value_wigprogress']) as $isisqlArr){
+                                            $put['tanggal'] = $isisqlArr->tanggal;
+                                            $put['target'] = (int) $isisqlArr->target;
+                                            $put['realisasi'] = (int) $isisqlArr->realisasi;
+                                            $putisi[] = $put;
+                                        }
+                                            $puta['wig'] = $idwig;
+                                            $puta['data'] = $putisi;
+                                            $putx[] = $puta;
+                                            $jsonput = json_encode($putx);
+                                            // echo $jsonput;
 
+                                    }
                                     ?>
                                 </div>
                             </div>
+                            <?php if($jsonaja) { ?>
+                            <hr>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            Target : <a class="btn btn-info"></a>
+                                        </div>
+                                        <div class="col-md-12">
+                                            Realisasi : <a class="btn btn-danger"></a>
+                                        </div>
+                                        
+                                    </div>
+                                    <div class="row">
+                                    <?php 
+                                    $m = 0;
+                                    foreach(json_decode($jsonaja) as $jsonq) { ?>
+                                        <div class="col-md-4">
+                                        <a href="#" class="btn btn-success"> Grafik : <?= $jsonq->lm.'-<b>'.$jsonq->pic.'</b>' ?></a>
+                                            <div class="chart">
+                                                <canvas id="lineChart<?= $m ?>" style="height:230px"></canvas>
+                                            </div>
+                                        </div>
+                                    <?php $m++; }
+                                    foreach(json_decode($jsonput) as $jsonl) { ?>
+                                        <div class="col-md-4">
+                                        <a href="#" class="btn btn-success"> Grafik : <?= $jsonl->wig ?></a>
+                                            <div class="chart">
+                                                <canvas id="lineChartwig" style="height:230px"></canvas>
+                                            </div>
+                                        </div>
+                                    <?php } ?>
+                                    </div>
+                                </div>
+                            </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -317,5 +380,178 @@ $(document).ready(function(){
         });
     });
 });
+</script>
+<script>
+  $(document).ready(function () {
+    
+    <?php
+        $m = 0;
+        foreach(json_decode($jsonaja) as $jsonq) { 
+    ?>
+    var barChartData = {
+      labels  : [
+        <?php 
+            foreach((array)$jsonq->data as $jsonr){
+                foreach((array) $jsonr->week as $jsonv){
+                    echo "'".$jsonv->nil."',";
+                }
+            }  
+        ?>
+      ],
+      datasets: [
+        {
+          label               : 'Electronics',
+          fillColor           : 'rgba(210, 214, 222, 1)',
+          strokeColor         : 'rgba(210, 214, 222, 1)',
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [
+            <?php 
+                foreach((array)$jsonq->data as $jsonr){
+                    foreach((array) $jsonr->target as $jsonv){
+                        echo $jsonv->nil.",";
+                    }
+                }  
+            ?>
+          ]
+        },
+        {
+          label               : 'Digital Goods',
+          fillColor           : 'rgba(60,141,188,0.9)',
+          strokeColor         : 'rgba(60,141,188,0.8)',
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          data                : [
+            <?php 
+                foreach((array)$jsonq->data as $jsonr){
+                    foreach((array) $jsonr->realisasi as $jsonv){
+                        echo $jsonv->nil.",";
+                    }
+                }  
+            ?>
+          ],
+        }
+      ]
+    }
 
+    barChartData.datasets[0].fillColor   = '#17a2b8'
+    barChartData.datasets[0].strokeColor = '#17a2b8'
+    barChartData.datasets[0].pointColor  = '#17a2b8'
+    barChartData.datasets[1].fillColor   = '#dc3545'
+    barChartData.datasets[1].strokeColor = '#dc3545'
+    barChartData.datasets[1].pointColor  = '#dc3545'
+    var barChartOptions                  = {
+      showScale               : true,
+      scaleShowGridLines      : false,
+      scaleGridLineColor      : 'rgba(0,0,0,.05)',
+      scaleGridLineWidth      : 1,
+      scaleShowHorizontalLines: true,
+      scaleShowVerticalLines  : true,
+      bezierCurve             : true,
+      bezierCurveTension      : 0.3,
+      pointDot                : true,
+      pointDotRadius          : 4,
+      pointDotStrokeWidth     : 1,
+      pointHitDetectionRadius : 20,
+      datasetStroke           : true,
+      datasetStrokeWidth      : 2,
+      datasetFill             : true,
+      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+      maintainAspectRatio     : true,
+      responsive              : true
+    }
+
+    var lineChartCanvas          = $('#lineChart<?= $m ?>').get(0).getContext('2d')
+    var lineChart                = new Chart(lineChartCanvas)
+    var lineChartOptions         = barChartOptions
+    lineChartOptions.datasetFill = false
+    lineChart.Line(barChartData, lineChartOptions)
+
+
+    <?php $m++; } ?>
+
+    <?php
+        foreach(json_decode($jsonput) as $jsonl) { 
+    ?>
+    var barChartData = {
+      labels  : [
+        <?php 
+            foreach($jsonl->data as $jsonf){
+                echo "'".date('F',strtotime($jsonf->tanggal))."',";
+            }      
+        ?>
+      ],
+      datasets: [
+        {
+          label               : 'Electronics',
+          fillColor           : 'rgba(210, 214, 222, 1)',
+          strokeColor         : 'rgba(210, 214, 222, 1)',
+          pointColor          : 'rgba(210, 214, 222, 1)',
+          pointStrokeColor    : '#c1c7d1',
+          pointHighlightFill  : '#fff',
+          pointHighlightStroke: 'rgba(220,220,220,1)',
+          data                : [
+            <?php 
+                foreach($jsonl->data as $jsonf){
+                    echo $jsonf->target.",";
+                }
+            ?>
+          ]
+        },
+        {
+          label               : 'Digital Goods',
+          fillColor           : 'rgba(60,141,188,0.9)',
+          strokeColor         : 'rgba(60,141,188,0.8)',
+          pointColor          : '#3b8bba',
+          pointStrokeColor    : 'rgba(60,141,188,1)',
+          pointHighlightFill  : '#fff',
+          data                : [
+            <?php 
+                foreach($jsonl->data as $jsonf){
+                    echo $jsonf->realisasi.",";
+                }
+            ?>
+          ],
+        }
+      ]
+    }
+
+    barChartData.datasets[0].fillColor   = '#17a2b8'
+    barChartData.datasets[0].strokeColor = '#17a2b8'
+    barChartData.datasets[0].pointColor  = '#17a2b8'
+    barChartData.datasets[1].fillColor   = '#dc3545'
+    barChartData.datasets[1].strokeColor = '#dc3545'
+    barChartData.datasets[1].pointColor  = '#dc3545'
+    var barChartOptions                  = {
+      showScale               : true,
+      scaleShowGridLines      : false,
+      scaleGridLineColor      : 'rgba(0,0,0,.05)',
+      scaleGridLineWidth      : 1,
+      scaleShowHorizontalLines: true,
+      scaleShowVerticalLines  : true,
+      bezierCurve             : true,
+      bezierCurveTension      : 0.3,
+      pointDot                : true,
+      pointDotRadius          : 4,
+      pointDotStrokeWidth     : 1,
+      pointHitDetectionRadius : 20,
+      datasetStroke           : true,
+      datasetStrokeWidth      : 2,
+      datasetFill             : true,
+      legendTemplate          : '<ul class="<%=name.toLowerCase()%>-legend"><% for (var i=0; i<datasets.length; i++){%><li><span style="background-color:<%=datasets[i].lineColor%>"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>',
+      maintainAspectRatio     : true,
+      responsive              : true
+    }
+
+    var lineChartCanvas          = $('#lineChartwig').get(0).getContext('2d')
+    var lineChart                = new Chart(lineChartCanvas)
+    var lineChartOptions         = barChartOptions
+    lineChartOptions.datasetFill = false
+    lineChart.Line(barChartData, lineChartOptions)
+    <?php } ?>
+
+  });
 </script>

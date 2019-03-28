@@ -251,8 +251,6 @@
 </script>
 <script>
   $(document).ready(function () {
-    // var barChartCanvas = $('#barChart').get(0).getContext('2d');
-    // var barChart = new Chart(barChartCanvas);
     var barChartData = {
       labels  : [<?php foreach($datgraf as $datas){ echo "'".date('M',strtotime($datas->tanggal))."',";}?>],
       datasets: [
